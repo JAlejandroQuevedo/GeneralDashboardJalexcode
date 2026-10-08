@@ -1,0 +1,24 @@
+@use "../../utilities/tokens" as *;
+
+//Cuerpo del menu del dashboard
+
+.bodyMenu {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  .btnBodyMenu {
+    cursor: pointer;
+    min-width: 300px;
+    max-width: 300px;
+    height: 40px;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid $texto;
+    background-color: $fondo;
+  }
+  .btnBodyMenuActive {
+    @extend .btnBodyMenu;
+    border-bottom: 2px solid $principal;
+  }
+}

@@ -1,0 +1,22 @@
+@use "../../utilities/tokens" as *;
+
+.create-chat-button-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  .create-chat-button {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    align-items: center;
+    width: 68px;
+    height: 68px;
+    background-color: $principal;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    img {
+      width: 50%;
+    }
+  }
+}

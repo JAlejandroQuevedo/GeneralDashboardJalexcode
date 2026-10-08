@@ -1,0 +1,19 @@
+//Estilos del formulario dentro del popup
+
+.dateInputsPopup {
+  display: flex;
+  gap: 200px;
+}
+.textInputPopup {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 70px;
+}
+.buttonsPopup {
+  display: flex;
+  padding-top: 50px;
+  padding-left: 20px;
+  padding-right: 20px;
+  justify-content: space-between;
+}

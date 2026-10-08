@@ -1,0 +1,41 @@
+@use "../../utilities/tokens" as *;
+
+//Estilos del boton de borrar
+
+.delete-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 6.25rem;
+  min-width: 100px;
+  height: $height_button;
+  padding: 10px;
+  border: none;
+  font-size: $body;
+  color: $fondo;
+  background-color: $error;
+  border-radius: 10px;
+  cursor: pointer;
+  &:hover {
+    border: 1px solid $fondo;
+  }
+  &:active {
+    color: $fondo;
+    background-color: $error;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+  &:disabled {
+    opacity: 0.2;
+    pointer-events: none;
+  }
+}
+
+//Estilo de la linea inferior del texto de "Eliminar"
+
+.line-delete {
+  width: 60%;
+  height: 2px;
+  background-color: $error;
+}

@@ -1,0 +1,81 @@
+@use "../../../utilities/tokens" as *;
+@use "../../../utilities/mixins" as *;
+
+.home-body {
+  //Styles de los titulos del staff
+  .table-titles {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    @include media(xs, lg) {
+      gap: 5px;
+    }
+    h2 {
+      color: $texto;
+      font-size: $subtitle;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 20px;
+      letter-spacing: 0.348px;
+      @include media(xs, lg) {
+        font-size: 18px;
+      }
+    }
+    h3 {
+      width: 100%;
+      font-size: 14px;
+      font-style: normal;
+      color: $txt_gray;
+      font-weight: 600;
+      line-height: 17px;
+      letter-spacing: 0.192px;
+      @include media(xs, lg) {
+        font-size: 13px;
+      }
+    }
+    @include media(xs, lg) {
+      gap: 5px;
+    }
+  }
+  .table-titles-btn {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    @include media(xs, lg) {
+      flex-direction: column;
+      gap: 24px;
+      h2 {
+        font-size: 20px;
+      }
+      h3 {
+        font-size: 12px;
+      }
+    }
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 13px;
+      background-color: #3c83f6;
+      border-radius: 10px;
+      color: $fondo;
+      cursor: pointer;
+      gap: 10px;
+      padding: 20px;
+      height: 50px;
+      outline: none;
+      border: none;
+      img {
+        width: 10px;
+      }
+    }
+  }
+  .home-list {
+    overflow-y: auto;
+    height: 560px;
+    max-height: 560px;
+    border: 2px solid $gris;
+    border-radius: 8px;
+    padding: 20px;
+  }
+}

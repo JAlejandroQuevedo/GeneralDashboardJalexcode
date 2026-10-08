@@ -1,0 +1,57 @@
+@use "../../utilities/tokens" as *;
+
+//Estilos para las tablas del proyecto
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.dynamic-table {
+  width: 100%;
+  margin-bottom: 30px;
+  border-collapse: collapse;
+  font-size: $body;
+  background-color: $fondo;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+  thead {
+    // background-color: $texto;
+
+    th {
+      color: $txt_gray;
+      padding: 12px;
+      text-align: left;
+      font-weight: 600;
+      border-bottom: 2px solid $gris;
+      &:first-child {
+        border-top-left-radius: 8px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 8px;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid $gris;
+    }
+
+    td {
+      padding: 12px;
+      color: $texto;
+
+      a {
+        color: $advertencia;
+        text-decoration: none;
+        font-weight: 500;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+@use "../utilities/tokens" as *;
+@use "../utilities/mixins" as *;
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+//Este documento sirve para contener todos los styles generales del proyecto, basicamente lo que se aplicara sin importar las clases
+
+//Estilos que se aplican en todo el html donde se renderiza
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  color: $texto;
+}
+
+//Estilos que se aplican en el proyecto, son mas especificos para aplicarse en lo que se mostrara en pantalla
+
+html,
+body {
+  height: 100%;
+  background-color: $fondo;
+}
+
+//Estilos que se aplicaran dentro del id root -> Son estilos que se aplican directamente en el div donde se renderiza react
+
+#root {
+  min-height: 100%;
+  background-color: $fondo;
+}
+
+//Esta linea de codigo evita un otline focus dentro de los inputs, sin importar la clase
+
+input:focus {
+  outline: none;
+}
+
+//Elimina los estilos de las anclas, especificamente la linea inferior caracteristica de estos elementos
+
+a {
+  text-decoration: none;
+}
+/* Ocultar scrollbar en mobile */
+@include media(xs, lg) {
+  * {
+    scrollbar-width: none;
+
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}

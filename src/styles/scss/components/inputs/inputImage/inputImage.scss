@@ -1,0 +1,26 @@
+@use "../../../utilities/tokens" as *;
+
+//Estilos del inputImage -> search para imagenes
+
+.inputImage {
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  border: 1px solid $gris;
+  border-radius: 10px 10px 0px 0px;
+}
+.inputImageContent {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 0px 0px 10px 10px;
+  border: 1px solid $gris;
+  overflow: hidden;
+}
+
+.inpuImageContainer {
+  min-width: 200px;
+  max-width: 400px;
+}

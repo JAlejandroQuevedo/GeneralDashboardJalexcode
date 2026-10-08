@@ -1,0 +1,46 @@
+@use "../../utilities/tokens" as *;
+@use "../../utilities/mixins" as *;
+
+//Manejo global del error message
+
+.errorApi {
+  display: flex;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.errorMsg {
+  position: absolute;
+  bottom: -23px;
+  left: 5px;
+  line-height: 1;
+  margin-left: 2px;
+  min-width: 200px;
+  color: $error;
+  font-size: $body;
+  font-style: normal;
+  line-height: 17px;
+  letter-spacing: 0.192px;
+  @include media(xs, lg) {
+    font-size: 10px;
+  }
+}
+.errorContainer {
+  width: 90%;
+  margin-bottom: 20px;
+}
+.errorLink {
+  a {
+    font-size: $body;
+    color: $principal;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 17px;
+    letter-spacing: 0.192px;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: auto;
+    text-decoration-thickness: auto;
+    text-underline-offset: auto;
+    text-underline-position: from-font;
+  }
+}

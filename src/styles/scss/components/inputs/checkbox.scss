@@ -1,0 +1,69 @@
+@use "../../utilities/tokens" as *;
+
+//Estilos del checkbox del proyecto
+
+.checkboxWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .checkboxLabel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: $body;
+    color: $texto;
+    cursor: pointer;
+    position: relative;
+
+    &.disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      &:checked ~ .checkmark {
+        border-color: $principal;
+      }
+
+      &:checked ~ .checkmark::after {
+        display: block;
+      }
+
+      &:disabled ~ .checkmark {
+        cursor: not-allowed;
+      }
+    }
+
+    .checkmark {
+      display: flex;
+      width: 25px;
+      height: 25px;
+      border-radius: 5px;
+      border: 2px solid $principal;
+      background: $fondo;
+      position: relative;
+      transition: all 0.2s ease;
+
+      &::after {
+        content: "";
+        position: absolute;
+        left: 6.5px;
+        top: 3px;
+        width: 5px;
+        height: 10px;
+        border: solid $principal;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+        display: none;
+      }
+    }
+  }
+  //Estilos de error del checkbox
+  .checkboxError ~ .checkmark {
+    border-color: $error;
+  }
+}

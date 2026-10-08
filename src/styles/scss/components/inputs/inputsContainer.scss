@@ -1,0 +1,19 @@
+//Estilos generales del form
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 20px;
+}
+
+//Estilos del input container
+
+.inputsContainers {
+  display: flex;
+  position: relative;
+  margin-bottom: 20px;
+  flex-direction: column;
+  gap: 0.3125rem;
+  align-items: flex-start;
+}

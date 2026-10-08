@@ -1,0 +1,59 @@
+//Archivo main donde renderizan todos los nodos de estilos del proyecto
+
+//Utilities
+@use "utilities/tokens";
+@use "utilities/variables";
+@use "utilities/mixins";
+//Base
+@use "base/body.scss";
+@use "base/reset.scss";
+//Layout
+@use "layout/navBar.scss";
+//Components
+@use "components/buttons/primary_button.scss";
+@use "components/buttons/secundary_button.scss";
+@use "components/buttons/primary_button_icon.scss";
+@use "components/buttons/secundary_button_icon.scss";
+@use "components/buttons/delete_button.scss";
+@use "components/buttons/discard_button.scss";
+@use "components/buttons/google_button.scss";
+@use "components/inputs/inputsContainer.scss";
+@use "components/inputs/inputText.scss";
+@use "components/inputs/inputCurrency.scss";
+@use "components/inputs/inputVerificationCode.scss";
+@use "components/inputs/inputDate.scss";
+@use "components/inputs/inputIcon.scss";
+@use "components/inputs/inputPassword.scss";
+@use "components/inputs/inputFile.scss";
+@use "components/inputs/inputImage/inputImage.scss";
+@use "components/inputs/inputImage/inputSearchIcon.scss";
+@use "components/inputs/dropdown.scss";
+@use "components/inputs/dropdownFilter.scss";
+@use "components/inputs/checkbox.scss";
+@use "components/inputs/errorMsg.scss";
+@use "components/table/table.scss";
+@use "components/popup/popup.scss";
+@use "components/popup/formPopup.scss";
+@use "components/home/home.scss";
+@use "components/home/auth/login.scss";
+@use "components/home/components/search/searchForm.scss";
+@use "components/home/components/bodyHome.scss";
+@use "components/home/components/lateralMenu.scss";
+@use "components/bodyMenu/bodyMenu.scss";
+@use "components/home/components/generalContainerReception.scss";
+@use "components/loader/loader.scss";
+@use "components/home/auth/verificationCode.scss";
+@use "components/error/showError.scss";
+@use "components/error/showSuccess.scss";
+@use "components/icons/iconInput.scss";
+@use "components/home/components/dashboard.scss";
+@use "components/home/components/staff.scss";
+@use "components/home/components/utils/utilsComponents.scss";
+@use "components/home/components/chat.scss";
+@use "components/home/components/markdown.scss";
+@use "components/home/components/userForm.scss";
+@use "components/home/components/createChatForm.scss";
+@use "components/buttons/generate_password_button.scss";
+@use "components/buttons/create_chat_button.scss";
+@use "components/home/components/lazyMedia.scss";
+@use "components/home/components/wa_modal.scss";

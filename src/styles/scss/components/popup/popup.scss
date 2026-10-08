@@ -1,0 +1,166 @@
+@use "../../utilities/tokens" as *;
+@use "../../utilities/mixins" as *;
+
+.popup-overlay {
+  background: rgba($fondo, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  position: fixed;
+  inset: 0;
+  z-index: 101;
+  animation: overlayShow 0.3s ease-in-out;
+}
+
+.popup-container {
+  background: $fondo;
+  border-radius: 20px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: 30px;
+  transform: translate(-50%, -50%);
+  z-index: 102;
+  width: var(--dinamic-width);
+  max-width: 100%;
+  height: var(--dinamic-height);
+  max-height: var(--dinamic-height);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  padding-top: 10px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  animation: contentShow 0.3s ease-in-out;
+  @include media(xs, sm) {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+
+  h2 {
+    font-size: 22px;
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .popup-close {
+    background: none;
+    border: none;
+    outline: none;
+    font-size: 22px;
+    margin-top: 15px;
+    margin-right: 15px;
+    margin-bottom: -10px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    @include media(xs, sm) {
+      margin-top: 15px;
+      margin-right: 0px;
+      position: relative;
+      right: 20px;
+    }
+    .iconClose {
+      width: 22px;
+      @include device("ipad-pro") {
+        width: 30px;
+      }
+      @include device("surface-7") {
+        width: 30px;
+      }
+    }
+    &:hover {
+      color: $texto;
+    }
+  }
+}
+
+.popup-body {
+  margin-top: 20px;
+  flex-grow: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: $gris transparent;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  &::-webkit-scrollbar {
+    width: 2px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $gris;
+    border-radius: 2px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+.popup-title {
+  width: 100%;
+  padding-left: 25px;
+  h3 {
+    font-size: 25px;
+    color: $texto;
+  }
+}
+.popup-delete-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  gap: 50px;
+  .popup-title {
+    display: flex;
+    justify-content: center;
+    @include media(xs, lg) {
+      padding: 10px;
+    }
+    h3 {
+      font-size: 20px;
+      text-align: center;
+      color: $texto;
+      @include media(xs, lg) {
+        font-size: 18px;
+      }
+    }
+  }
+  .btn-container {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    @include media(xs, lg) {
+      padding: 10px;
+      gap: 40px;
+      justify-content: space-around;
+    }
+  }
+}
+@keyframes overlayShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes contentShow {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}

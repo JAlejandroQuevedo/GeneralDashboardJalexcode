@@ -1,0 +1,142 @@
+@use "../../../utilities/tokens" as *;
+
+//Estilos de todo el apartado del login
+
+.login {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  //   justify-content: center;
+  align-items: center;
+  .authForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 50px;
+    width: var(--dinamic-width);
+    height: 100%;
+    padding: 40px;
+    background-color: $fondo;
+    .linkContainerForm {
+      display: flex;
+      width: 100%;
+      padding: 0 80px 0 20px;
+      justify-content: space-between;
+    }
+    .logoAuthForm {
+      width: 100%;
+      display: flex;
+      img {
+        width: 70px;
+        height: 70px;
+      }
+    }
+    .formAuth {
+      display: flex;
+      flex-direction: column;
+      gap: var(--dinamic-gap);
+      padding: 0;
+      width: 100%;
+    }
+    .textAuthForm {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    h1 {
+      font-size: $subtitle;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 30px;
+      letter-spacing: 0.348px;
+    }
+    h4 {
+      width: 80%;
+      font-size: $body;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 17px;
+      letter-spacing: 0.192px;
+    }
+
+    span {
+      font-style: normal;
+      font-weight: 600;
+      line-height: 17px; /* 141.667% */
+      letter-spacing: 0.192px;
+      a {
+        font-size: $body;
+        color: $principal;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 17px;
+        letter-spacing: 0.192px;
+        text-decoration-line: underline;
+        text-decoration-style: solid;
+        text-decoration-skip-ink: auto;
+        text-decoration-thickness: auto;
+        text-underline-offset: auto;
+        text-underline-position: from-font;
+      }
+    }
+  }
+  .authImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    background-image: url($auth_background);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    .authImgSlg {
+      display: flex;
+      background: rgba(255, 255, 255, 0.3);
+      flex-direction: column;
+      gap: 20px;
+      justify-content: center;
+      align-items: flex-start;
+      border-radius: 10px;
+      padding: 80px;
+      width: 80%;
+      height: 250px;
+      .slgContent {
+        color: $fondo;
+        font-size: $subtitle;
+        font-weight: 600;
+        line-height: 30px;
+        letter-spacing: 0.34px;
+        text-shadow: 0 4px 4px $gris_alto;
+        text-align: center;
+      }
+      .slgQuote {
+        display: flex;
+        font-size: $body;
+        justify-content: flex-end;
+        width: 100%;
+        color: $fondo;
+        font-weight: 600;
+        line-height: 17px;
+        letter-spacing: 0.192px;
+        text-shadow: 0 4px 4px $gris_alto;
+      }
+    }
+  }
+}
+.forgotPassword {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 90px 20px 50px;
+  a {
+    color: $secundario;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 17px; /* 141.667% */
+    letter-spacing: 0.192px;
+    text-align: right;
+  }
+}

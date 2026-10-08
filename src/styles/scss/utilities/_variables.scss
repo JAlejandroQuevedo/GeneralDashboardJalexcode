@@ -1,0 +1,149 @@
+//Archivo donde se declaran las variables que se pasaran como tokens en el proyecto, estas variables estan pensadas
+//para que solo sea necesario cambiar una y que con esto se modifique cada parte del proyecto
+
+//Colors
+$colors: (
+  fondo: #fdfdfd,
+  principal: #2b7fff,
+  secundario: #2b7fff,
+  texto: #212121,
+  txt_gray: #9da3ab,
+  gris: #e5e7eb,
+  gris_bajo: #f2f3f5,
+  gris_alto: #959595,
+  hover_principal: #2b7fff,
+  hover_secundario: #498982,
+  hover_terciario: #e4f0fd,
+  error: #ed3636,
+  exito: #1b9229,
+  advertencia: #d28202,
+  completado: #28a745,
+  pendiente: #ffc107,
+  no_asignado: #ef4343,
+  background_chat: #efeae2,
+);
+//Font sizes
+
+$font_sizes: (
+  title: 2.25rem,
+  subtitle: 1.5rem,
+  body: 0.75rem,
+  body_bold: 12px,
+  captions: 0.625rem,
+);
+
+//Sizes
+$sizes: (
+  width_button: 119px,
+  height_button: 37px,
+);
+
+//Background images
+$background_images: (
+  auth_background: "/img/icons/bakground_login.svg",
+);
+//Breakpoints
+
+$breakpoints: (
+  "xs": 0,
+  //xR
+  "xr": 390px,
+  //xr - pro max
+  "xr-p-max": 413px,
+  //14 pro max iphone
+  "p-max": 414px,
+
+  "p-max-sm": 575px,
+  // Móvil pequeño
+  "sm": 576px,
+
+  // Móvil grande / tablet
+  "md": 768px,
+  // Tablet vertical / iPad Mini
+  "lg": 992px,
+  // Laptop pequeña / Tablet horizontal
+  "xl": 1200px,
+  // Desktop estándar 14" en adelante
+  "xxl": 1400px,
+  // Monitores grandes
+  "uhd": 1920px, // 4K / Ultrawide,,,,
+);
+
+$height-breakpoints: (
+  // Móviles girados: el teclado tapa todo.
+  "mobile-land": 500px,
+
+  // Laptops 13"-14"
+  "laptop": 850px,
+
+  // Monitores verticales o muy altos.
+  "tall": 1000px
+);
+//Devices responsive
+
+$devices: (
+  "samsung-s8": (
+    "min-w": 360px,
+    "max-w": 374px,
+    "min-h": 740px,
+    "max-h": 843px,
+  ),
+  "sm-se": (
+    "min-w": 375px,
+    "max-w": 389px,
+    "min-h": 667px,
+    "max-h": 739px,
+  ),
+  "iphone-12-pro": (
+    "min-w": 390px,
+    "max-w": 411px,
+    "min-h": 844px,
+    "max-h": 895px,
+  ),
+  "pixel-7": (
+    "min-w": 412px,
+    "max-w": 413px,
+  ),
+  "s20-ultra": (
+    "min-w": 412px,
+    "max-w": 413px,
+    "min-h": 915px,
+    "max-h": 931px,
+  ),
+  "iphone-xr": (
+    "min-w": 413px,
+    "max-w": 429px,
+    "min-h": 896px,
+    "max-h": 931px,
+  ),
+  "iphone-pmax": (
+    "min-w": 430px,
+    "max-w": 768px,
+    "min-h": 932px,
+    "max-h": 1024px,
+  ),
+  "ipad-mini": (
+    "min-w": 768px,
+    "max-w": 819px,
+    "min-h": 1024px,
+    "max-h": 1179px,
+  ),
+  "ipad-air": (
+    "min-w": 820px,
+    "max-w": 911px,
+    "min-h": 1180px,
+    "max-h": 1365px,
+  ),
+  "ipad-pro": (
+    "min-w": 912px,
+    "max-w": 1024px,
+    "min-h": 1366px,
+    "max-h": 1367px,
+  ),
+  "surface-7": (
+    "min-w": 912px,
+    "max-w": 913px,
+    "min-h": 1368px,
+    "max-h": 1370px,
+  ),
+);

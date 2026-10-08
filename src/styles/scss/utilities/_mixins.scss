@@ -1,0 +1,96 @@
+@use "sass:map";
+@use "sass:meta";
+@use "variables" as *;
+
+@mixin media($min-w-key, $max-w-key: null, $max-h-key: null) {
+  // 1. Resolvemos $min-w
+  $min-w: $min-w-key;
+  @if map.has-key($breakpoints, $min-w-key) {
+    $min-w: map.get($breakpoints, $min-w-key);
+  }
+
+  // 2. Resolvemos $max-w
+  $max-w: $max-w-key;
+  @if map.has-key($breakpoints, $max-w-key) {
+    $max-w: map.get($breakpoints, $max-w-key);
+  }
+
+  // 3. Resolvemos $max-h
+  $max-h: $max-h-key;
+  @if map.has-key($height-breakpoints, $max-h-key) {
+    $max-h: map.get($height-breakpoints, $max-h-key);
+  }
+
+  // 4. Resolvemos $max-w-val
+  $max-w-val: $max-w;
+  @if meta.type-of($max-w) == "number" {
+    $max-w-val: $max-w - 0.02px;
+  }
+
+  // Generación de las Media Queries
+  @if $min-w and not $max-w and not $max-h {
+    @media (min-width: $min-w) {
+      @content;
+    }
+  } @else if $min-w and $max-w and not $max-h {
+    @media (min-width: $min-w) and (max-width: $max-w-val) {
+      @content;
+    }
+  } @else if $min-w and not $max-w and $max-h {
+    @media (min-width: $min-w) and (max-height: $max-h) {
+      @content;
+    }
+  } @else if $min-w and $max-w and $max-h {
+    @media (min-width: $min-w) and (max-width: $max-w-val) and (max-height: $max-h) {
+      @content;
+    }
+  } @else if not $min-w and $max-w {
+    @media (max-width: $max-w-val) {
+      @content;
+    }
+  }
+
+  // CASO ERROR
+  @else {
+    @error "Error en @include media(): Parámetros inválidos o combinación no soportada. Valor recibido: #{$min-w-key}, #{$max-w-key}";
+  }
+}
+
+// Helper para landscape
+@mixin mobile-landscape {
+  @media (orientation: landscape) and (max-height: map.get($height-breakpoints, "mobile-land")) {
+    @content;
+  }
+}
+
+// Mixin para devices
+@mixin device($name) {
+  $device: map.get($devices, $name);
+
+  @if $device {
+    $min-w: map.get($device, "min-w");
+    $max-w: map.get($device, "max-w");
+    $min-h: map.get($device, "min-h");
+    $max-h: map.get($device, "max-h");
+
+    $query: "all";
+    @if $min-w {
+      $query: $query + " and (min-width: #{$min-w})";
+    }
+    @if $max-w {
+      $query: $query + " and (max-width: #{$max-w})";
+    }
+    @if $min-h {
+      $query: $query + " and (min-height: #{$min-h})";
+    }
+    @if $max-h {
+      $query: $query + " and (max-height: #{$max-h})";
+    }
+
+    @media #{$query} {
+      @content;
+    }
+  } @else {
+    @error "El dispositivo '#{$name}' no existe en el mapa $devices. Revisa tu archivo _variables.scss.";
+  }
+}

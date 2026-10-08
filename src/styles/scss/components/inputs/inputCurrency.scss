@@ -1,0 +1,66 @@
+@use "../../utilities/tokens" as *;
+
+//Estilos del label para el input Currency
+.labelCurrency {
+  font-size: $body;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 17px;
+  letter-spacing: 0.192px;
+}
+
+//Estilos del input currency
+
+.inputCurrency {
+  display: flex;
+  width: var(--w, 200px);
+  height: var(--h, 40px);
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+  border-radius: 10px;
+  border: 1px solid $gris;
+  background-color: $fondo;
+  &::placeholder {
+    color: $gris;
+    opacity: 1;
+  }
+  &::placeholder {
+    color: #aaa;
+    transition: color 0.3s ease;
+  }
+
+  &:focus::placeholder {
+    color: #ddd;
+  }
+  &:hover {
+    border: 1px solid $principal;
+  }
+  &:disabled {
+    background: $gris;
+    color: $texto;
+    border: none;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+  &:disabled::placeholder {
+    color: $texto;
+  }
+}
+.width100 {
+  input {
+    width: 800px;
+  }
+}
+
+//Estilos del error input
+
+.errorInputCurrency {
+  @extend .inputCurrency;
+  border: 1px solid $error;
+  &::placeholder {
+    color: $error;
+  }
+}

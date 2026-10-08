@@ -1,0 +1,72 @@
+@use "../../utilities/tokens" as *;
+
+//Estilos del fileUploader input
+
+.fileUploadWrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: inherit;
+
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .uploadButton {
+    display: flex;
+    height: 37px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background: $secundario;
+    color: $fondo;
+    font-weight: 600;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .placeholderText {
+    color: $gris;
+  }
+
+  .fileInfo {
+    display: flex;
+    width: fit-content;
+    min-width: 221px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    background-color: $gris;
+    opacity: 0.5;
+    padding: 6px 10px;
+    border-radius: 6px;
+
+    span {
+      color: $texto;
+    }
+
+    .clearButton {
+      background: transparent;
+      border: none;
+      font-size: 16px;
+      color: $texto;
+      cursor: pointer;
+
+      &:hover {
+        color: $error;
+      }
+    }
+  }
+}
+.fileIcon {
+  width: 20px;
+  height: 20px;
+}

@@ -1,0 +1,39 @@
+@use "../../utilities/tokens" as *;
+@use "../../utilities/mixins" as *;
+
+//Estilos del inputVerification code
+.inputVerificationCode {
+  display: flex;
+  width: 50px;
+  height: 75px;
+  background-color: $fondo;
+  border: 1px solid $gris;
+  padding: 10px;
+  text-align: center;
+  font-size: $body;
+  color: $txt_gray;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  @include media(xs, lg) {
+    width: 45px;
+    height: 70px;
+  }
+  &::placeholder {
+    color: $gris;
+    opacity: 0.8;
+  }
+  &:active {
+    &::placeholder {
+      display: none;
+    }
+  }
+}
+
+//Errores del input verification code
+
+.inputVerificationCodeError {
+  @extend .inputVerificationCode;
+  border: 1px solid $error;
+}

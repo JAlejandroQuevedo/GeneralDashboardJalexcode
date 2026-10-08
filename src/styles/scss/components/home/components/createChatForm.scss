@@ -1,0 +1,73 @@
+@use "../../../utilities/mixins" as *;
+@use "../../../utilities/tokens" as *;
+
+.create-chat-form-container {
+  padding: 10px;
+}
+.form-inputs-container-chat {
+  display: flex;
+  align-items: center;
+  justify-content: var(--dinamic-align);
+  width: 100%;
+  border: 1px solid $gris;
+  border-radius: 8px;
+  padding: 20px;
+  gap: 10px;
+  @include media(xs, lg) {
+    flex-direction: column;
+    gap: 2px;
+  }
+  .inputsContainers {
+    width: 100%;
+    height: 80px;
+    margin-top: 20px;
+    @include media(xs, lg) {
+      width: 100%;
+      margin-top: -10px;
+    }
+  }
+  .phone-input-group {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    align-items: flex-start;
+
+    > .inputsContainers {
+      width: 130px;
+      flex: 0 0 130px;
+    }
+
+    .phone-input-wrapper {
+      flex: 1;
+      min-width: 0;
+
+      .inputsContainers {
+        width: 100%;
+      }
+    }
+  }
+}
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  img {
+    width: 30px;
+    height: 30px;
+  }
+  p {
+    font-size: 14px;
+    color: #ef4343;
+  }
+}
+.form-buttons-container-chat {
+  display: flex;
+  align-items: center;
+  justify-content: var(--dinamic-align);
+  width: 100%;
+  border: 1px solid $gris;
+  border-radius: 8px;
+  padding: 20px;
+  gap: 10px;
+}

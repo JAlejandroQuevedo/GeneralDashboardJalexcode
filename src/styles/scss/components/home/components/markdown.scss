@@ -1,0 +1,231 @@
+@use "../../../utilities/tokens" as *;
+
+.markdown {
+  line-height: 1.6;
+}
+/* Elimina el margen superior del primer elemento del markdown */
+.markdown > :first-child {
+  margin-top: 0;
+}
+
+/* Elimina el margen inferior del último elemento del markdown */
+.markdown > :last-child {
+  margin-bottom: 0;
+}
+/* Encabezados */
+.markdown h1 {
+  color: var(--dinamic-color);
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.markdown h2 {
+  color: var(--dinamic-color);
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.markdown h3 {
+  color: var(--dinamic-color);
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.markdown h4 {
+  color: var(--dinamic-color);
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.markdown h5 {
+  color: var(--dinamic-color);
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.markdown h6 {
+  color: $fondo;
+
+  font-size: 13px;
+  font-weight: bold;
+}
+
+/* Párrafos */
+.markdown p {
+  color: var(--dinamic-color);
+
+  font-size: 13px;
+  margin: 1em 0;
+}
+
+/* Formato de texto */
+.markdown b,
+.markdown strong {
+  color: var(--dinamic-color);
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.markdown i,
+.markdown em {
+  color: var(--dinamic-color);
+  font-style: italic;
+}
+
+.markdown u {
+  color: var(--dinamic-color);
+  text-decoration: underline;
+}
+
+.markdown s,
+.markdown strike,
+.markdown del {
+  color: var(--dinamic-color);
+  text-decoration: line-through;
+}
+
+.markdown mark {
+  color: var(--dinamic-color);
+}
+
+.markdown small {
+  font-size: 13px;
+  color: var(--dinamic-color);
+}
+
+.markdown abbr {
+  text-decoration: dotted underline;
+  cursor: help;
+  color: var(--dinamic-color);
+}
+
+.markdown sup {
+  color: var(--dinamic-color);
+  font-size: 13px;
+  vertical-align: super;
+}
+
+.markdown sub {
+  color: var(--dinamic-color);
+  font-size: 13px;
+  vertical-align: sub;
+}
+
+/* Código */
+.markdown pre {
+  background: #f9f8f7;
+  color: #232323;
+  border-radius: 12px;
+  padding: 18px 14px;
+  margin: 10px 0;
+  font-size: 13px;
+  font-family: "Fira Mono", "Consolas", "Menlo", monospace;
+  overflow-x: auto;
+  white-space: pre;
+  max-width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 4px 14px #0002;
+  border: 1px solid #fff;
+  word-break: break-word;
+  line-height: 1.6;
+}
+
+.markdown pre code {
+  color: var(--dinamic-color);
+  background: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0;
+}
+
+.markdown code {
+  color: var(--dinamic-color);
+  font-size: 13px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: "Fira Mono", "Consolas", "Menlo", monospace;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Enlaces */
+.markdown a {
+  color: #0181b0;
+  max-width: 100%;
+
+  text-decoration: underline;
+  font-size: 13px;
+}
+
+.markdown a:hover {
+  text-decoration: none;
+}
+
+.markdown a:visited {
+  color: blue;
+  text-decoration: underline;
+}
+
+.markdown a:visited:hover {
+  color: black;
+  text-decoration: none;
+}
+
+/* Listas */
+.markdown ul {
+  color: var(--dinamic-color);
+  list-style-type: disc;
+  padding-left: 20px;
+  font-size: 13px;
+}
+
+.markdown ol {
+  color: red;
+  list-style-type: decimal;
+  padding-left: 20px;
+  font-size: 13px;
+}
+
+.markdown li {
+  color: var(--dinamic-color);
+  margin: 15px 0;
+  font-size: 13px;
+
+  &:last-child {
+    margin-bottom: 20px;
+  }
+}
+
+/* Tablas */
+.markdown table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin: 1em 0;
+  color: var(--dinamic-color);
+}
+
+.markdown th,
+.markdown td {
+  font-size: 12px;
+  border: 1px solid black;
+  padding: 6px;
+  text-align: left;
+
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  vertical-align: top;
+}
+
+.markdown th {
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #f0f0f0;
+}
+
+.markdown th:first-child,
+.markdown td:first-child {
+  width: 30%;
+}

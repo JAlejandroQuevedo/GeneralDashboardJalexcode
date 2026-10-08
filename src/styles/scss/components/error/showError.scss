@@ -1,0 +1,99 @@
+@use "../../utilities/tokens" as *;
+@use "../../utilities/mixins" as *;
+
+//Animacion para cuando el componente se muestre o se oculte
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeOutScale {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+//Estilos del shower de error del proyecto
+
+.showError {
+  display: flex;
+  background-color: rgba(237, 54, 54, 0.2);
+  width: 67%;
+  height: 90px;
+  padding: 10px 30px;
+  align-items: center;
+  gap: 10px;
+  border-radius: 5px;
+  animation: fadeInScale 0.3s ease-out forwards;
+  @include media(xs, lg) {
+    width: 100%;
+    height: 120px;
+  }
+  &.hide {
+    animation: fadeOutScale 0.3s ease-in forwards;
+  }
+  img {
+    width: 40px;
+    height: 40px;
+  }
+  .showErrorContainer {
+    padding: 10px 20px;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    gap: 5px;
+
+    .titleShowError {
+      color: $texto;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 12px; /* 141.667% */
+      letter-spacing: 0.192px;
+      @include media(xs, lg) {
+        font-size: 10px;
+      }
+    }
+
+    .messageErrorConteiner {
+      display: flex;
+      gap: 5px;
+      .messageShowError {
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 17px;
+        letter-spacing: 0.192px;
+        @include media(xs, lg) {
+          font-size: 10px;
+        }
+      }
+      a {
+        font-size: $body;
+        color: $principal;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 17px;
+        letter-spacing: 0.192px;
+        text-decoration-line: underline;
+        text-decoration-style: solid;
+        text-decoration-skip-ink: auto;
+        text-decoration-thickness: auto;
+        text-underline-offset: auto;
+        text-underline-position: from-font;
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+@use "../../../utilities/mixins" as *;
+
+//Estilos del componente contenedor del verification code
+
+.verificationCode {
+  display: flex;
+  width: 100%;
+  gap: 40px;
+  margin-bottom: 50px;
+  justify-content: flex-start;
+  @include media(xs, lg) {
+    gap: 10px;
+  }
+}

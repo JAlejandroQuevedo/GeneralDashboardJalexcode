@@ -1,0 +1,146 @@
+@use "../../../utilities/tokens" as *;
+@use "../../../utilities/mixins" as *;
+
+//Estilos del menu lateral de dashboard
+
+.lateralMenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 5%;
+  height: 100vh;
+  border-right: 2px solid $gris;
+  transition:
+    transform 1s ease-in-out,
+    opacity 1s ease-in-out,
+    margin-left 1s ease-in-out;
+  transform: translateX(0);
+  opacity: 1;
+  margin-left: 0;
+  @include media(xs, lg) {
+    position: absolute;
+    z-index: 999; // Nos aseguramos de que tape al dashboard cuando se abra
+    left: 0;
+    top: 0;
+
+    width: 60%;
+    background-color: $fondo;
+
+    &.is-closed {
+      transform: translateX(-100%);
+      margin-left: -40px;
+    }
+  }
+  &.is-closed {
+    transform: translateX(-100%);
+    opacity: 0;
+    margin-left: -4%;
+    pointer-events: none;
+  }
+
+  .title {
+    color: $fondo;
+    width: 75%;
+    font-size: $subtitle;
+    text-align: center;
+  }
+  .logoLateralMenu {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // padding: 10px;
+    border-bottom: 2px solid $gris;
+    @include media(xs, lg) {
+      justify-content: space-between;
+    }
+    button {
+      display: flex;
+      justify-content: center;
+      position: relative;
+      top: -20px;
+      left: 20px;
+      align-items: center;
+      width: 25px;
+      height: 25px;
+      background: none;
+      outline: none;
+      border: 2px solid $gris;
+      border-radius: 50%;
+      aspect-ratio: 1 / 1;
+      img {
+        width: 80%;
+        height: 80%;
+      }
+    }
+    img {
+      width: 70%;
+      height: 70%;
+      object-fit: fill;
+      object-position: center;
+      @include media(xs, lg) {
+        width: 60%;
+      }
+    }
+  }
+  .containerButtonsLateralMenu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 15px;
+    padding: 10px;
+    margin-top: 30px;
+    -webkit-tap-highlight-color: transparent;
+    .txt-menu {
+      font-size: 9.5px;
+      color: $txt_gray;
+      padding-left: 15px;
+    }
+    .btnFill {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      gap: 20px;
+      padding: 10px 15px 10px 15px;
+      width: 50px;
+      height: 50px;
+      background-color: $fondo;
+      border: none;
+      border-radius: 50%;
+      aspect-ratio: 1/1;
+      box-shadow: 0 1px 3px 0 $gris;
+      img {
+        width: 15px;
+        height: 15px;
+        -webkit-tap-highlight-color: transparent;
+      }
+      p {
+        color: $principal;
+        font-size: $body;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 17px;
+        letter-spacing: 0 0.192px;
+      }
+      &:hover {
+        background-color: $fondo;
+        box-shadow: 0 4px 6px 0 $gris;
+        p {
+          color: $principal;
+        }
+      }
+    }
+    .btnInactive {
+      @extend .btnFill;
+      background: none;
+      outline: none;
+      box-shadow: none;
+      p {
+        color: #9da3ab;
+      }
+    }
+  }
+}

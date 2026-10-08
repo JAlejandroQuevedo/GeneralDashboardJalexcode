@@ -1,0 +1,67 @@
+@use "../../utilities/tokens" as *;
+
+//Animacion para cuando el componente se muestre o se oculte
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeOutScale {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+//Estilos del shower de success del proyecto
+
+.showSuccess {
+  display: flex;
+  background-color: rgba(27, 146, 41, 0.2);
+  width: 67%;
+  height: 90px;
+  padding: 10px 30px;
+  align-items: center;
+  gap: 10px;
+  border-radius: 5px;
+  animation: fadeInScale 0.3s ease-out forwards;
+  &.hide {
+    animation: fadeOutScale 0.3s ease-in forwards;
+  }
+  img {
+    width: 40px;
+    height: 40px;
+  }
+  .showSuccessContainer {
+    padding: 10px 10px;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    gap: 5px;
+    .titleShowSuccess {
+      color: $texto;
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 17px; /* 141.667% */
+      letter-spacing: 0.192px;
+    }
+    .messageShowSuccess {
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 17px;
+      letter-spacing: 0.192px;
+    }
+  }
+}

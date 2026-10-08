@@ -1,0 +1,341 @@
+@use "../../../utilities/tokens" as *;
+@use "../../../utilities/mixins" as *;
+
+.dashboard-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  @include media(xs, lg) {
+    margin-bottom: 15px;
+  }
+  h2 {
+    color: $texto;
+    font-size: $subtitle;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0.348px;
+  }
+  h3 {
+    width: 80%;
+    font-size: 14px;
+    font-style: normal;
+    color: $txt_gray;
+    font-weight: 600;
+    line-height: 17px;
+    letter-spacing: 0.192px;
+    @include media(xs, lg) {
+      font-size: 12px;
+    }
+  }
+}
+
+//Dashboard conteiner stles
+.general-card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+
+  @include media(xs, lg) {
+    flex-direction: column;
+    align-items: stretch;
+    height: var(--dinamc-height-mobile);
+  }
+  //Styles de las cards counter del dashboard
+  .dashboard-card {
+    flex: 1;
+    background-color: $fondo;
+    border: 2px solid $gris;
+    height: 130px;
+    padding: 20px;
+    border-radius: 8px;
+    @include media(xs, lg) {
+      flex: none;
+      height: 120px;
+      padding: 10px;
+    }
+    .nav-card {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      h4 {
+        font-size: 15px;
+        font-style: normal;
+        color: $texto;
+        font-weight: 600;
+        line-height: 17px;
+        letter-spacing: 0.192px;
+      }
+      img {
+        width: 15px;
+        height: 15px;
+        object-fit: contain;
+        object-position: center;
+        -webkit-tap-highlight-color: transparent;
+      }
+    }
+    .body-card {
+      display: flex;
+      flex-direction: column;
+      gap: -3px;
+      margin-top: 15px;
+      h2 {
+        font-size: 30px;
+        color: var(--dinamic-color);
+      }
+      p {
+        font-size: 12px;
+        color: $txt_gray;
+      }
+    }
+  }
+
+  //Esilos de las cards list del dashboard
+
+  .cards-assets {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: $fondo;
+    border: 2px solid $gris;
+    height: 270px;
+    min-height: 270px;
+    max-height: 270px;
+    padding: 20px;
+    border-radius: 8px;
+    @include media(xs, lg) {
+      min-height: 300px;
+      max-height: 300px;
+    }
+    .nav-card {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      @include media(xs, lg) {
+        flex-direction: column;
+      }
+      .nav-txt-btn {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        .nav-img-txt {
+          display: flex;
+          width: 100%;
+          align-items: center;
+          gap: 7px;
+          h4 {
+            font-size: 22px;
+            font-style: normal;
+            color: $texto;
+            font-weight: 600;
+            line-height: 17px;
+            letter-spacing: 0.192px;
+            @include media(xs, lg) {
+              font-size: 19px;
+            }
+          }
+          img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+            object-position: center;
+            -webkit-tap-highlight-color: transparent;
+          }
+        }
+        p {
+          margin-top: -6px;
+          font-size: 13px;
+          color: $txt_gray;
+        }
+      }
+      .btn-see-all {
+        padding: 10px;
+        cursor: pointer;
+        background-color: $fondo;
+        border: 2px solid $gris;
+        outline: none;
+        font-weight: 700;
+      }
+    }
+    .cards-assets-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      margin-top: 5px;
+      .list-element {
+        display: flex;
+        justify-content: space-between;
+        gap: 5px;
+
+        border-bottom: 1px solid $gris;
+        padding: 20px 0px;
+        .list-card {
+          display: flex;
+
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+          .img-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            aspect-ratio: 1/1;
+            background-color: #e5f3fe;
+            img {
+              width: 60%;
+            }
+          }
+          .list-detail {
+            display: flex;
+            flex-direction: column;
+            max-width: 365px;
+            gap: 2px;
+            @include media(xs, lg) {
+              max-width: 325px;
+            }
+            h3 {
+              font-size: 14px;
+            }
+            p {
+              font-size: 12px;
+              color: $txt_gray;
+            }
+          }
+        }
+        .list-timer {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          img {
+            width: 15px;
+          }
+          p {
+            font-size: 12px;
+            color: $txt_gray;
+            @include media(xs, lg) {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+//Styles de las fast actions del dashboard
+.fast-actions {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 30px 20px;
+  overflow: scroll;
+  gap: 20px;
+  border: 2px solid $gris;
+  border-radius: 5px;
+
+  .title-img-subtitle {
+    display: flex;
+    flex-direction: column;
+    .txt-img {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      h3 {
+        font-size: 20px;
+        color: $texto;
+      }
+
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+    p {
+      font-size: 12px;
+      color: $txt_gray;
+    }
+  }
+  .actions-btns {
+    display: flex;
+    width: 100%;
+    gap: 15px;
+
+    @include media(xs, lg) {
+      flex-direction: column;
+    }
+    .btn-actions {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      outline: none;
+      border: 2px solid $gris;
+      border-radius: 5px;
+      background-color: $fondo;
+      height: 100px;
+      flex: 1;
+      -webkit-tap-highlight-color: transparent;
+      @include media(xs, lg) {
+        padding: 15px;
+      }
+      &:hover {
+        color: $principal;
+        background-color: $hover_terciario;
+      }
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+    .btn-inactive {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      cursor: var(--dinamic-pointer);
+      outline: none;
+      border: 2px solid $gris_bajo;
+      color: $txt_gray;
+      border-radius: 5px;
+      background-color: $fondo;
+      height: 100px;
+      flex: 1;
+      -webkit-tap-highlight-color: transparent;
+      @include media(xs, lg) {
+        padding: 15px;
+      }
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}
+
+//Styles para el popup up de la lista del staff
+.popup-staff {
+  .home-list {
+    .table-titles {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      padding-left: 5px;
+      width: 70%;
+      gap: 5px;
+      h3 {
+        color: $txt_gray;
+        line-height: 26px;
+      }
+    }
+  }
+}

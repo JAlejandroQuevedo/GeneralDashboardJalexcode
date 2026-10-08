@@ -1,0 +1,40 @@
+@use "sass:map";
+@use "../utilities/variables" as vars;
+
+//Archivo donde se definen las variables que se usaran, en conjunto con variables declaradas, esto se llama token
+//es tal cual como se usaran las variables previamente declaradas en el proyecto.
+
+//Colors
+
+$fondo: map.get(vars.$colors, fondo);
+$principal: map.get(vars.$colors, principal);
+$secundario: map.get(vars.$colors, secundario);
+$texto: map.get(vars.$colors, texto);
+$txt_gray: map.get(vars.$colors, txt_gray);
+$gris: map.get(vars.$colors, gris);
+$gris_bajo: map.get(vars.$colors, gris_bajo);
+$gris_alto: map.get(vars.$colors, gris_alto);
+$hover_principal: map.get(vars.$colors, hover_principal);
+$hover_secundario: map.get(vars.$colors, hover_secundario);
+$hover_terciario: map.get(vars.$colors, hover_terciario);
+$error: map.get(vars.$colors, error);
+$exito: map.get(vars.$colors, exito);
+$advertencia: map.get(vars.$colors, advertencia);
+$completado: map.get(vars.$colors, completado);
+$pendiente: map.get(vars.$colors, pendiente);
+$no_asignado: map.get(vars.$colors, no_asignado);
+$background_chat: map.get(vars.$colors, background_chat);
+
+//Font sizes
+$title: map.get(vars.$font_sizes, title);
+$subtitle: map.get(vars.$font_sizes, subtitle);
+$body: map.get(vars.$font_sizes, body);
+$body_bold: map.get(vars.$font_sizes, body_bold);
+$captions: map.get(vars.$font_sizes, captions);
+
+//Sizes
+$width_button: map.get(vars.$sizes, width_button);
+$height_button: map.get(vars.$sizes, height_button);
+
+//Background images
+$auth_background: map.get(vars.$background_images, auth_background);

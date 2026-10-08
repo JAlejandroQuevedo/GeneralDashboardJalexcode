@@ -1,0 +1,587 @@
+@use "../../../utilities/tokens" as *;
+//Estilos para la media de imagen
+
+/* Contenedor de carga (Placeholder) */
+.media {
+  width: 100%;
+  height: 350px;
+  background: transparent;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: $texto;
+  font-size: 12px;
+  margin-top: 8px;
+  font-family: "Inter", sans-serif;
+  margin-bottom: 20px;
+  font-weight: 700;
+  .spinner {
+    font-weight: 500;
+  }
+}
+
+/* Imagen clickeable */
+.lazy-media-image {
+  width: 100%;
+  height: 350px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-top: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s ease-in-out;
+  object-fit: cover;
+  object-position: center;
+  background-repeat: no-repeat;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+.yarl__button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* Contenedor del álbum */
+.media-album-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+  max-width: 360px;
+  margin-top: 4px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Envoltorio de cada miniatura para forzar proporciones cuadradas */
+.album-thumb-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+}
+
+.album-thumb-placeholder {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: $texto;
+  opacity: 0.04;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.album-thumb-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: filter 0.2s ease;
+
+  &:hover {
+    filter: brightness(0.85);
+  }
+}
+
+/* Efecto +N imágenes restantes */
+.album-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $texto;
+  opacity: 0.75;
+  color: $fondo;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 600;
+  z-index: 2;
+}
+
+/*  Estilos del Modal Intermedio (Álbum) */
+
+.album-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: $fondo;
+  opacity: 0.95;
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.album-modal-container {
+  background-color: $fondo;
+  max-width: 70%;
+  max-height: 85vh;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.album-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background-color: $fondo;
+  border-bottom: 1px solid #e9edef;
+
+  span {
+    font-size: 16px;
+    font-weight: 600;
+    color: $texto;
+  }
+}
+
+.close-modal-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #d1d7db;
+  }
+}
+
+.album-modal-content {
+  padding: 16px;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+//Estilos para media audio
+
+/* Contenedor principal (Columna: Reproductor arriba, Transcripción abajo) */
+
+.audio-message-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 260px;
+  width: 100%;
+}
+
+/* Contenedor estilo WhatsApp (Fila: Play | Onda | Velocidad) */
+
+.wa-audio-player {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 0;
+  width: 100%;
+}
+
+.audio-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 40px;
+  span {
+    font-size: 12px;
+    color: $gris_alto;
+  }
+}
+
+.wa-play-btn {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.2s;
+  padding: 0;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+/* Contenedor de la onda */
+.wa-waveform-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  gap: 4px;
+  min-width: 150px;
+}
+
+/* El div donde se dibuja la onda */
+
+.wa-waveform {
+  width: 100%;
+  min-height: 35px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+
+.wa-audio-time {
+  font-size: 11px;
+  color: $gris_alto;
+  line-height: 1;
+}
+
+.wa-speed-btn {
+  background-color: #f0f2f5;
+  color: #54656f;
+  border: none;
+  border-radius: 12px;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  min-width: 36px;
+  text-align: center;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #d1d7db;
+  }
+}
+
+.wa-transcript-box {
+  background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: $texto;
+  position: relative;
+  padding-right: 32px;
+}
+
+.transcript-header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 4px;
+  color: $gris_alto;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* (El texto se puede quedar bloque para mejor formato) */
+.transcript-text {
+  display: block;
+  font-style: italic;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Anclamos el botón a la esquina superior derecha */
+.transcript-toggle-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  position: absolute;
+  bottom: 1px;
+  right: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.transcript-toggle-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+//Estilos para stickers
+
+/* Contenedor de carga específico para stickers (sin fondo sólido) */
+.sticker-placeholder {
+  width: 190px;
+  height: 190px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: $gris_alto;
+  font-size: 11px;
+}
+
+/* El sticker per se */
+.wa-sticker-image {
+  width: 190px;
+  height: 190px;
+  object-fit: contain;
+  background-color: transparent;
+  border-radius: 0;
+  pointer-events: none;
+
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+//Estilos de documentos
+
+.wa-document-card {
+  display: flex;
+  align-items: center;
+  background-color: $fondo;
+  border-radius: 8px;
+  padding: 10px;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.2s;
+  cursor: pointer;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+
+  &:hover {
+    background-color: #d1d7db;
+  }
+}
+
+.wa-doc-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 40px;
+  height: 48px;
+  border-radius: 4px;
+  margin-right: 12px;
+  color: $fondo;
+  img {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.wa-doc-info {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.wa-doc-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: $texto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+
+.wa-doc-meta {
+  font-size: 12px;
+  color: #54656f;
+}
+
+.wa-doc-download {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 8px;
+}
+
+/* MODAL DEL VISOR DE PDF IN-APP */
+.wa-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: none;
+  outline: none;
+  background-color: $texto;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wa-modal-content {
+  width: 80%;
+  max-width: 1000px;
+  height: 90vh;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.wa-modal-header {
+  height: 50px;
+  background-color: $principal;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 0 16px;
+  span {
+    color: $fondo;
+  }
+  font-weight: 500;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+
+  background-clip: padding-box;
+}
+.button-modal-container {
+  display: flex;
+}
+.wa-modal-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $fondo;
+  transition: opacity 0.2s;
+  padding: 8px;
+  border-radius: 4px;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+
+  &:hover {
+    opacity: 0.7;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.wa-modal-iframe {
+  width: 100%;
+  height: calc(100% - 50px);
+  border: none;
+  background-color: #525659;
+}
+
+//Estilos para los videos
+.video-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 350px;
+}
+.wa-video-container {
+  width: 100%;
+  max-width: 100%;
+  height: 350px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 4px;
+  background-color: $texto;
+
+  /* COLORES */
+  .plyr {
+    height: 100%;
+
+    --plyr-color-main: $principal !important;
+    --plyr-video-control-color: $fondo !important;
+    --plyr-video-control-color-hover: $fondo !important;
+    --plyr-video-controls-background: linear-gradient(
+      transparent,
+      rgba(0, 0, 0, 0.7)
+    ) !important;
+  }
+
+  .plyr__controls [data-plyr],
+  .plyr__controls svg,
+  .plyr__time {
+    color: $fondo !important;
+    fill: $fondo !important;
+  }
+
+  .plyr__menu__container {
+    color: #4a5568 !important;
+    [data-plyr],
+    svg {
+      color: inherit !important;
+      fill: inherit !important;
+    }
+  }
+
+  .plyr__video-wrapper,
+  video {
+    height: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+    //    object-fit: cover !important;
+  }
+
+  /*TAMAÑO EN PANTALLA COMPLETA */
+  .plyr.plyr--fullscreen-active .plyr__video-wrapper,
+  .plyr.plyr--fullscreen-active video {
+    background-color: $texto !important;
+    max-height: 100% !important;
+    height: 100% !important;
+  }
+
+  /* Mostrar la barra al pasar el mouse por encima de la bocina */
+  .plyr__volume input[type="range"] {
+    width: 0 !important;
+    min-width: 0 !important;
+    max-width: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    transition:
+      width 0.3s ease,
+      min-width 0.3s ease,
+      max-width 0.3s ease,
+      opacity 0.3s ease,
+      margin 0.3s ease !important;
+  }
+
+  /* Mostrar la barra al pasar el mouse por encima de la bocina */
+  .plyr__volume:hover input[type="range"],
+  .plyr__volume:focus-within input[type="range"] {
+    width: 70px !important;
+    min-width: 70px !important;
+    max-width: 70px !important;
+    opacity: 1 !important;
+    cursor: pointer;
+    pointer-events: all !important;
+    margin-left: 8px !important;
+  }
+  /* CURSOR POINTER EN LA BARRA DE PROGRESO */
+  .plyr__progress input[type="range"] {
+    cursor: pointer !important;
+  }
+}

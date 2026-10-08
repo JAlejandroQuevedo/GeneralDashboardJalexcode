@@ -1,0 +1,64 @@
+@use "../../utilities/tokens" as *;
+@use "../../utilities/mixins" as *;
+
+//Estilos del contendeor home
+
+.home {
+  display: flex;
+  width: 100%;
+  height: 100dvh;
+  .main-wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+    .content-area {
+      flex-grow: 1; /* Toma el alto restante debajo del NavBar */
+      overflow-y: auto; /* Permite scroll solo en el contenido de la vista */
+      padding: 5px;
+    }
+  }
+}
+.home-titles {
+  display: flex;
+  gap: 5px;
+  flex-direction: row;
+  width: 97.5%;
+  align-items: center;
+  padding: 20px;
+  color: $texto;
+  margin: 10px;
+  gap: 30px;
+  margin-bottom: 0px;
+  border-radius: 10px;
+  border: 1px solid $gris;
+  @include media(xs, lg) {
+    justify-content: center;
+  }
+  .txt-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  img {
+    width: 50px;
+    height: 50px;
+    @include media(xs, lg) {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  h4 {
+    font-size: 20px;
+    @include media(xs, lg) {
+      font-size: 15px;
+    }
+  }
+  p {
+    font-size: 14px;
+    color: $gris-alto;
+    @include media(xs, lg) {
+      font-size: 12px;
+    }
+  }
+}

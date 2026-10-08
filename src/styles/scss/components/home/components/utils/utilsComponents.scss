@@ -1,0 +1,79 @@
+@use "../../../../utilities/tokens" as *;
+@use "../../../../utilities/mixins" as *;
+
+.staff-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  .staff-photo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid $gris;
+    background-color: $fondo;
+    img {
+      width: 60%;
+    }
+  }
+  .staff-data {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    h3 {
+      font-size: 14px;
+      @include media(xs, lg) {
+        font-size: 12px;
+      }
+    }
+    p {
+      font-size: 12px;
+      color: $txt_gray;
+    }
+  }
+}
+
+.actions-container {
+  display: flex;
+  gap: 10px;
+  .edit-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $fondo;
+    border: 2px solid $gris;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover {
+      background-color: $gris_bajo;
+    }
+    img {
+      object-fit: contain;
+      object-position: center;
+      width: 15px;
+      height: 15px;
+    }
+  }
+  .delete-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $fondo;
+    border: 2px solid $gris;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover {
+      background-color: #f9e8e9;
+    }
+    img {
+      width: 15px;
+      height: 15px;
+      object-fit: contain;
+      object-position: center;
+    }
+  }
+}

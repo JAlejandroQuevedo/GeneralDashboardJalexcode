@@ -1,0 +1,39 @@
+{
+  "routes": [
+    {
+      "route": "/favicon.ico",
+      "serve": "/favicon.ico"
+    },
+    {
+      "route": "/manifest.json",
+      "serve": "/manifest.json"
+    },
+    {
+      "route": "/robots.txt",
+      "serve": "/robots.txt"
+    },
+    {
+      "route": "/img/*",
+      "serve": "/assets/images/*"
+    },
+    {
+      "route": "/assets/*",
+      "serve": "/assets"
+    },
+    {
+      "route": "/static/*",
+      "serve": "/static/*"
+    },
+    {
+      "route": "/api/*",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/*",
+      "headers": {
+        "Content-Security-Policy": "frame-ancestors 'self' "
+      },
+      "rewrite": "/index.html"
+    }
+  ]
+}

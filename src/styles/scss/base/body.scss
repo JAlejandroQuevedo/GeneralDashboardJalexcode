@@ -1,0 +1,28 @@
+//Styles del body -> Es el container general del proyecto
+
+.body {
+  padding: 20px 20px 10px 10px;
+}
+//Styles de un contendeor pre fabricado -> Sirve para expermintar como se verian las cosas
+
+.Container {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  gap: 20px;
+  padding: 20px 20px 10px 10px;
+}
+
+//Styles de un container element -> Crea un contenedor flexible que abarca toda la pantalla con un margin left de 20px
+
+.containerElement {
+  display: flex;
+  width: 100%;
+  margin-left: 20px;
+}
+
+//Crea un button para un popup con un padding de 50px
+
+.buttonPopup {
+  padding: 50px;
+}

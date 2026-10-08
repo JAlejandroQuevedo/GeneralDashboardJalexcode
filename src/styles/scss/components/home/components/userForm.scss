@@ -1,0 +1,66 @@
+@use "../../../utilities/tokens" as *;
+@use "../../../utilities/mixins" as *;
+
+.userForm {
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+  .bodyUserForm {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .form-inputs-container {
+      display: flex;
+      align-items: center;
+      justify-content: var(--dinamic-align);
+      width: 100%;
+      border: 1px solid $gris;
+      border-radius: 8px;
+      padding: 20px;
+      gap: 10px;
+      @include media(xs, lg) {
+        flex-direction: column;
+        gap: 2px;
+      }
+      .inputsContainers {
+        width: 50%;
+        height: 80px;
+        margin-top: 20px;
+        @include media(xs, lg) {
+          width: 100%;
+          margin-top: -10px;
+        }
+      }
+      .input-password-container {
+        display: flex;
+        align-items: center;
+        align-items: flex-end;
+        width: 50%;
+        gap: 5px;
+        margin-top: 30px;
+        @include media(xs, lg) {
+          width: 100%;
+        }
+
+        .inputsContainers {
+          width: var(--dinamic-width);
+          margin-top: -10px;
+        }
+      }
+    }
+
+    .form-buttons-container {
+      display: flex;
+      align-items: center;
+      justify-content: var(--dinamic-align);
+      width: 100%;
+      border: 1px solid $gris;
+      border-radius: 8px;
+      padding: 20px;
+      gap: 10px;
+    }
+  }
+}

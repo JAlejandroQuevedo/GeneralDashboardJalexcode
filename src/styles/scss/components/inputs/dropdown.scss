@@ -1,0 +1,127 @@
+@use "../../utilities/tokens" as *;
+@use "../../utilities/mixins" as *;
+
+//Estilos del label del dropdown
+
+.labelDropdown {
+  font-size: $body;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 17px;
+  letter-spacing: 0.192px;
+}
+
+//Estilos del dropdown component
+
+// === Wrapper de react-select ===
+.inputDropdown {
+  width: 100%;
+
+  // Control del select (lo que se ve cerrado)
+  .rs__control {
+    display: flex;
+    height: 50px;
+    padding: 0 10px;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid $gris;
+    background-color: $fondo;
+    font-size: $body;
+    box-shadow: none;
+    @include media(xs, lg) {
+      font-size: 16px;
+    }
+
+    &:hover {
+      border-color: $principal;
+    }
+
+    &--is-focused {
+      border-color: $principal;
+      box-shadow: 0 0 0 1px $principal;
+      .rs__dropdown-indicator svg {
+        fill: $texto;
+      }
+    }
+  }
+
+  // Placeholder
+  .rs__placeholder {
+    color: $gris;
+  }
+
+  // Texto seleccionado
+  .rs__single-value {
+    color: $texto;
+  }
+
+  // Menú desplegable
+  .rs__menu {
+    border-radius: 10px;
+    background: $fondo;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  // Opciones del menú
+  .rs__option {
+    padding: 8px 12px;
+    font-size: $body;
+    color: $texto;
+    cursor: pointer;
+    @include media(xs, lg) {
+      font-size: 16px;
+    }
+
+    &--is-focused {
+      color: $fondo;
+      background: $principal;
+    }
+    &--is-selected {
+      background: $principal;
+      color: white;
+    }
+  }
+
+  // Quitar línea vertical entre texto y flecha
+  .rs__indicator-separator {
+    display: none;
+  }
+
+  // Flecha del dropdown
+  .rs__dropdown-indicator svg {
+    fill: $gris;
+    transition: transform 0.2s ease;
+  }
+
+  // Menú cuando no hay opciones
+  .rs__menu-notice {
+    color: $gris;
+  }
+
+  .rs__control--is-disabled {
+    background: $gris;
+
+    border: none;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+}
+
+// === Estilo de error ===
+.errorDropdown {
+  @extend .inputDropdown;
+  .rs__dropdown-indicator svg {
+    fill: $error;
+  }
+  .rs__control {
+    border-color: $error;
+    &:hover {
+      border-color: 1px solid $principal;
+    }
+  }
+
+  .rs__placeholder {
+    color: $error;
+  }
+}

@@ -1,0 +1,56 @@
+@use "../../utilities/tokens" as *;
+
+//Estilos del label para el inputIcon
+.labelIcon {
+  font-size: $body;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 17px;
+  letter-spacing: 0.192px;
+}
+
+//Estilos para el input icon
+
+.inputIcon {
+  display: flex;
+  width: var(--w, 200px);
+  height: var(--h, 40px);
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+  border-radius: 10px;
+  border: 1px solid $gris;
+  background-color: $fondo;
+  input {
+    border: none;
+    background: none;
+    &::placeholder {
+      color: $gris;
+      opacity: 1;
+    }
+    &::placeholder {
+      color: #aaa;
+      transition: color 0.3s ease;
+    }
+
+    &:focus::placeholder {
+      color: #ddd;
+    }
+  }
+
+  &:hover {
+    border: 1px solid $principal;
+  }
+}
+//Estilos de error para el input icon
+.errorInputIcon {
+  @extend .inputIcon;
+  border: 1px solid $error;
+  input {
+    &::placeholder {
+      color: $error;
+    }
+  }
+}

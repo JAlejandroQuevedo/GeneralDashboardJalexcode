@@ -1,0 +1,33 @@
+@use "../../utilities/tokens" as *;
+
+//Estilos del button de descartar
+
+.discard-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 6.25rem;
+  min-width: 100px;
+  height: $height_button;
+  padding: 10px;
+  border: none;
+  color: $fondo;
+  background-color: $gris_alto;
+  border-radius: 10px;
+  font-size: $body;
+  cursor: pointer;
+  &:hover {
+    border: 1px solid $fondo;
+  }
+  &:active {
+    color: $fondo;
+    background-color: $gris;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+  &:disabled {
+    opacity: 0.2;
+    pointer-events: none;
+  }
+}
