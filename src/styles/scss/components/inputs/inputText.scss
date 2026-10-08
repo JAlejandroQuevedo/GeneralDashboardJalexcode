@@ -238,6 +238,7 @@
     position: absolute;
     top: 0; /* Asegura que el fantasma del placeholder se alinee con el texto real */
     color: $gris !important;
+    font-size: 12px;
     pointer-events: none;
     transition: color 0.3s ease;
   }

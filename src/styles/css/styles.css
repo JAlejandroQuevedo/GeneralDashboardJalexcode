@@ -585,6 +585,7 @@ form {
   position: absolute;
   top: 0; /* Asegura que el fantasma del placeholder se alinee con el texto real */
   color: #e5e7eb !important;
+  font-size: 12px;
   pointer-events: none;
   transition: color 0.3s ease;
 }
@@ -3760,6 +3761,7 @@ form {
   cursor: pointer;
   border-radius: 8px;
   min-width: 70px;
+  max-width: 70px;
   height: 70px;
   border: 2px solid transparent;
   transition: border-color 0.2s;
@@ -5179,9 +5181,14 @@ form {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: transparent;
+  background: transparent;
   color: #959595;
   font-size: 11px;
+}
+
+.sticker-container-wrapper {
+  cursor: pointer;
+  position: relative;
 }
 
 /* El sticker per se */
@@ -5207,11 +5214,13 @@ form {
 }
 .wa-document-card {
   display: flex;
+  justify-content: center;
   align-items: center;
-  background-color: #fdfdfd;
+  background: transparent;
   border-radius: 8px;
   padding: 10px;
   width: 100%;
+  height: 68px;
   text-decoration: none;
   color: inherit;
   transition: background-color 0.2s;

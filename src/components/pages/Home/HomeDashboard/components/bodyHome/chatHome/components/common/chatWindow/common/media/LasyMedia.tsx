@@ -15,6 +15,7 @@ export const LazyMedia = ({
   const { mediaUrl, isLoading, hasError, isLightboxOpen, setIsLightboxOpen } =
     useLazyMedia(mediaId);
   const { setReplyingTo } = useChatUIStore();
+
   if (isLoading) {
     return (
       <div className="media">

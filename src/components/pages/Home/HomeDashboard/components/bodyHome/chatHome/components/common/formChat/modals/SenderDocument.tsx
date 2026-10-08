@@ -15,6 +15,7 @@ export const SenderDocument = ({
       onFilesSelected(selectedFiles);
     }
   };
+
   return (
     <div className="document-picker-container">
       <button
@@ -28,7 +29,7 @@ export const SenderDocument = ({
           ref={imageInputRef}
           hidden
           multiple
-          accept="image/*,video/*"
+          accept="image/jpeg,image/png,image/webp,video/mp4,video/3gpp"
           onChange={handleFileChange}
         />
       </button>

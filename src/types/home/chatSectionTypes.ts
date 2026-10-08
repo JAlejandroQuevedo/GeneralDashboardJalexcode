@@ -216,7 +216,9 @@ export type ThumbNailsScrollPropsType = {
 };
 export type InputButtonContainerModalTypeProps = {
   fileInputRef: RefObject<HTMLInputElement | null>;
-  acceptTypes: "image/*,video/*" | ".pdf,.doc,.docx,.xls,.xlsx,.txt";
+  acceptTypes:
+    | "image/jpeg,image/png,image/webp,video/mp4,video/3gpp"
+    | ".pdf,.doc,.docx,.xls,.xlsx,.txt";
   onOpenCamera: (() => void) | undefined;
   isDisabled: boolean;
   isMediaMode: boolean;

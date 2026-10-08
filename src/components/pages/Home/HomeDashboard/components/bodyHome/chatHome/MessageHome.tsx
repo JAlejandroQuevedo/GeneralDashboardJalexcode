@@ -157,13 +157,14 @@ export const ChatApp = () => {
 
   //Manejo del envio de multimedia
   const handleSendMedia = async (files: File[], caption: string) => {
-    // 1. Guardamos el contexto de respuesta para aplicarlo SOLO a la primera imagen
+    // Guardamos el contexto de respuesta para aplicarlo SOLO a la primera imagen
     const currentReplyContext = replyingTo?.wa_id;
     clearReply();
 
     // Se secuencialmente para garantizar el orden cronológico en el chat
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
+
       const tempWaId = `agent-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
 
       // Se determinaa el tipo exacto de media
@@ -174,6 +175,7 @@ export const ChatApp = () => {
       } else if (file.type.startsWith("video/")) {
         mediaType = "video"; // Videos (MP4)
       }
+
       // Solo adjuntamos el caption y el reply en el PRIMER archivo
       const isFirstItem = i === 0;
       const fileCaption = isFirstItem ? caption : "";

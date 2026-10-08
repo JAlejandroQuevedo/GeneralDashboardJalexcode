@@ -75,7 +75,6 @@ export const LazySticker = ({
     observer.observe(containerRef.current);
     return () => observer.disconnect();
   }, [playSticker, freezeSticker]);
-
   // Manejo de estados de carga y error originales
   if (isLoading) {
     return (
@@ -88,7 +87,7 @@ export const LazySticker = ({
   if (hasError || !mediaUrl) {
     return (
       <div className="sticker-placeholder">
-        <span>⚠️ Falló</span>
+        <span>Falló</span>
       </div>
     );
   }
@@ -98,7 +97,6 @@ export const LazySticker = ({
       ref={containerRef}
       className="sticker-container-wrapper"
       onClick={playSticker}
-      style={{ cursor: "pointer", position: "relative" }}
     >
       <img
         ref={imgRef}

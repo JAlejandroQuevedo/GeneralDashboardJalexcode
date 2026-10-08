@@ -50,10 +50,12 @@ export const MediaPreviewModal = ({
   const { validateFile } = useUtilities();
 
   //Constante del media mode
+
   const isMediaMode =
     files[0]?.type.startsWith("image/") || files[0]?.type.startsWith("video/");
+
   const acceptTypes = isMediaMode
-    ? "image/*,video/*"
+    ? "image/jpeg,image/png,image/webp,video/mp4,video/3gpp"
     : ".pdf,.doc,.docx,.xls,.xlsx,.txt";
 
   //Efecto que ejecuta la logica
@@ -63,6 +65,7 @@ export const MediaPreviewModal = ({
       type: file.type,
       name: file.name,
     }));
+
     setPreviews(objectUrls);
     if (activeIndex >= objectUrls.length) {
       setActiveIndex(Math.max(0, objectUrls.length - 1));
@@ -75,7 +78,12 @@ export const MediaPreviewModal = ({
   const handleAddMoreFiles = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const rawFiles = Array.from(e.target.files);
-
+      const hasSvg = rawFiles.some((file) => file.type === "image/svg+xml");
+      if (hasSvg) {
+        alert("WhatsApp no soporta imágenes SVG. Por favor sube un PNG o JPG.");
+        if (fileInputRef.current) fileInputRef.current.value = "";
+        return; // Detenemos el flujo aquí
+      }
       //Se muestran los cuadros de carga instantáneamente
       setLoadingCount(rawFiles.length);
 

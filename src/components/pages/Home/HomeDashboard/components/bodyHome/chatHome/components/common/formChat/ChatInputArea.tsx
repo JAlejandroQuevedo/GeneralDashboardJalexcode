@@ -72,6 +72,11 @@ export const ChatInputArea = ({
   const { isSm } = useResponsive();
   //Handle para cuando esta seleccionado un archivo desde el sistema del usuario
   const handleFilesSelected = async (files: File[]) => {
+    const hasSvg = files.some((file) => file.type === "image/svg+xml");
+    if (hasSvg) {
+      alert("WhatsApp no soporta imágenes SVG. Por favor sube un PNG o JPG.");
+      return;
+    }
     setShowSender(false);
     const optimizedFiles = await compressFiles(files);
 
@@ -134,6 +139,7 @@ export const ChatInputArea = ({
   //Logica para determinar cundo se envio el ultimo mensaje del chat
   const { hasPassed24Hours } = useUtilities();
   const lastMessageChat = activeChatInfo[0].last_message_time;
+  console.log(lastMessageChat);
   const isChatDisabled = hasPassed24Hours(lastMessageChat);
 
   //Funcion que maneja el envio del formulario
