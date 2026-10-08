@@ -15,8 +15,22 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     permissions:
-       id-token: write
-       contents: read
+      id-token: write
+      contents: read
+    env:
+      VITE_API_URL: ${{ secrets.VITE_API_URL }}
+      VITE_API_WHATSAPP_URL: ${{ secrets.VITE_API_WHATSAPP_URL }}
+      VITE_BEARER_TOKEN: ${{ secrets.VITE_BEARER_TOKEN }}
+      VITE_CALLBACK_AUTH: ${{ secrets.VITE_CALLBACK_AUTH }}
+      VITE_CLIENT_ID: ${{ secrets.VITE_CLIENT_ID }}
+      VITE_CLIENT_POOL: ${{ secrets.VITE_CLIENT_POOL }}
+      VITE_COGNITO_DOMAIN: ${{ secrets.VITE_COGNITO_DOMAIN }}
+      VITE_ENV_PRIMARY: ${{ secrets.VITE_ENV_PRIMARY }}
+      VITE_ID_DEV_CHAT: ${{ secrets.VITE_ID_DEV_CHAT }}
+      VITE_ID_DEV_USER: ${{ secrets.VITE_ID_DEV_USER }}
+      VITE_ID_DEV_USER_ADMIN: ${{ secrets.VITE_ID_DEV_USER_ADMIN }}
+      VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+      VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -28,10 +42,10 @@ jobs:
         uses: actions/github-script@v6
         id: idtoken
         with:
-           script: |
-               const coredemo = require('@actions/core')
-               return await coredemo.getIDToken()
-           result-encoding: string
+          script: |
+            const coredemo = require('@actions/core')
+            return await coredemo.getIDToken()
+          result-encoding: string
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -42,7 +56,7 @@ jobs:
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "/" # App source code path
           api_location: "" # Api source code path - optional
-          output_location: "build" # Built app content directory - optional
+          output_location: "dist" # Dist app content directory - optional
           github_id_token: ${{ steps.idtoken.outputs.result }}
           ###### End of Repository/Build Configurations ######
 
