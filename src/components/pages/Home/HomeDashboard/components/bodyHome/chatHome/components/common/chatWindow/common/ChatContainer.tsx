@@ -1,6 +1,12 @@
 import { Fragment } from "react/jsx-runtime";
 import type { ChatContainerProps } from "../../../../../../../../../../../types/home/chatSectionTypes";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+} from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -26,11 +32,9 @@ import { useDataChat } from "../../../../data/useDataChat";
 import { LazyMediaAlbum } from "./media/LazyMediaAlbum";
 import { useGroupedMessages } from "../../../../../../../../../../../hooks/useUtilities";
 import { QuotedMessage } from "../../quoted/QuotedMessage";
+import { Astroid } from "lucide-react";
 
 export const ChatContainer = ({ messages }: ChatContainerProps) => {
-  //Referencia para saber cuando es el ultimo mensaje
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-
   //Store para los elementos chat ui
   const {
     isSelectionMode,
@@ -38,6 +42,14 @@ export const ChatContainer = ({ messages }: ChatContainerProps) => {
     toggleMessageSelection,
     deletingIds,
   } = useChatUIStore();
+  //Se obtiene el chat activo del state
+  const { activeChat } = useActiveChat();
+
+  //Se obtienen los chats
+  const { chats } = useDataChat();
+
+  //Referencia para saber cuando es el ultimo mensaje
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   //Longitud para saber cuando hacer el scroll
   const lastMessage = messages[messages.length - 1];
@@ -46,29 +58,28 @@ export const ChatContainer = ({ messages }: ChatContainerProps) => {
     : "empty";
 
   //Funcion para saber cuando se debe hacer el scroll automatico
-  const scrollToBottom = (isInitialLoad = false) => {
-    // requestAnimationFrame espera a que el navegador termine de calcular las alturas del DOM
+  useLayoutEffect(() => {
+    messagesEndRef.current?.scrollIntoView({
+      behavior: "auto",
+      block: "end",
+    });
+  }, [activeChat]);
+
+  // 2. Scroll con animación suave al recibir mensajes nuevos
+  useEffect(() => {
+    if (scrollTrigger === "empty") return; // Evitar que corra en la carga inicial
+
     requestAnimationFrame(() => {
       setTimeout(() => {
         messagesEndRef.current?.scrollIntoView({
-          behavior: isInitialLoad ? "auto" : "smooth",
-          block: "end", // Fuerza a que el ancla sea la parte inferior exacta
+          behavior: "smooth",
+          block: "end",
         });
-      }, 150); // 150ms le da el respiro perfecto para renderizar componentes pesados como Quotes o Media
+      }, 150);
     });
-  };
+  }, [scrollTrigger]);
   // Historial local de mensajes eliminados
   const [localDeletingIds, setLocalDeletingIds] = useState<string[]>([]);
-
-  // Scroll sin animación al entrar
-  useEffect(() => {
-    scrollToBottom(true);
-  }, []);
-
-  // Scroll con animación suave al recibir mensajes nuevos
-  useEffect(() => {
-    scrollToBottom(false);
-  }, [scrollTrigger]);
 
   //Efecto para que la animacion no se corte cuando se limpie
   useEffect(() => {
@@ -94,10 +105,6 @@ export const ChatContainer = ({ messages }: ChatContainerProps) => {
     if (!replyToId) return null;
     return messages.find((m) => m.wa_id === replyToId) || null;
   };
-  //Se obtiene el chat activo del state
-  const { activeChat } = useActiveChat();
-  //Se obtienen los chats
-  const { chats } = useDataChat();
 
   //Se obtienen las reacciones optimistas instantaneas
   const { optimisticReactions, setOpenMenuId } = useReactionStore();
@@ -187,14 +194,15 @@ export const ChatContainer = ({ messages }: ChatContainerProps) => {
                 className={`message-bubble ${msg.sender} ${isMediaTypeBubble ? "bubble-media" : ""} ${isSelected ? "selected" : ""}`}
               >
                 {/* Botón de Reacciones */}
-                {!isSelectionMode && msg.sender !== "agent" && (
-                  <ReactionMenu
-                    message={msg}
-                    phone={currentActiveChat?.bsuid}
-                    currentReaction={displayReaction}
-                  />
-                )}
-
+                {!isSelectionMode &&
+                  msg.sender !== "agent" &&
+                  msg.sender !== "agent-IA" && (
+                    <ReactionMenu
+                      message={msg}
+                      phone={currentActiveChat?.bsuid}
+                      currentReaction={displayReaction}
+                    />
+                  )}
                 {/* Menú Desplegable */}
                 {!isSelectionMode && msg.sender !== "agent-IA" && (
                   <MessageMenu
@@ -205,7 +213,6 @@ export const ChatContainer = ({ messages }: ChatContainerProps) => {
                     canIReply={msg.isAlbum ? false : true}
                   />
                 )}
-
                 {/* Cita de Mensaje Respondido */}
                 {quotedMsg && (
                   <QuotedMessage
@@ -232,7 +239,6 @@ export const ChatContainer = ({ messages }: ChatContainerProps) => {
                     }}
                   />
                 )}
-
                 {/* Multimedia */}
                 {msg.isAlbum ? (
                   <LazyMediaAlbum messages={msg.messages} />
@@ -269,7 +275,6 @@ export const ChatContainer = ({ messages }: ChatContainerProps) => {
                     mimeType={msg.mime_type}
                   />
                 )}
-
                 {/* Texto Markdown */}
                 <div
                   style={
@@ -297,14 +302,17 @@ export const ChatContainer = ({ messages }: ChatContainerProps) => {
                     {msg.text}
                   </ReactMarkdown>
                 </div>
-
                 {/* Pie del Mensaje (Hora y Palomitas) */}
                 <span className="time">
                   {formatMessageTime(msg.created_at)}
                   {msg.sender === "agent" && (
                     <MessageStatusIcon status={msg.status} />
                   )}
+                  {msg.sender === "agent-IA" && (
+                    <Astroid size={13} color="#00C0F0" />
+                  )}
                 </span>
+
                 {displayReaction && (
                   <div
                     onClick={() => {

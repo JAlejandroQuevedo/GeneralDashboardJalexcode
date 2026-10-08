@@ -106,8 +106,8 @@ export const MediaPreviewModal = ({
       onClose();
       cancelCompression();
     } else {
-      cancelCompression();
       onRemoveFile(index);
+      cancelCompression();
     }
   };
 

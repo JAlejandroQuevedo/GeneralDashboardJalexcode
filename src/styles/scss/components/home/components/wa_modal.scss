@@ -12,6 +12,12 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  @include media(xs, lg) {
+    top: 12px;
+    left: 23px;
+    width: 90vw;
+    height: 90vh;
+  }
 }
 
 .forward-modal {
@@ -235,7 +241,6 @@
         background-color 0.2s;
 
       &:hover {
-        background-color: #018f6f;
         transform: scale(1.05);
       }
 

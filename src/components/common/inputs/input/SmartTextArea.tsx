@@ -32,7 +32,12 @@ export const SmartTextArea = forwardRef<SmartEditorRef, SmartTextAreaProps>(
       extensions: [
         StarterKit.configure({ heading: false }),
         Placeholder.configure({
-          placeholder: placeholder || "Escribe un mensaje...",
+          showOnlyCurrent: false,
+          placeholder: ({ pos }) => {
+            // El primer bloque/renglón del chat siempre está en la posición 0.
+            // Cualquier salto de línea, viñeta o bloque extra tendrá un pos > 0.
+            return pos === 0 ? placeholder || "Escribe un mensaje..." : "";
+          },
         }),
         Markdown.configure({
           html: false, // Mantiene la salida limpia de HTML
@@ -45,10 +50,26 @@ export const SmartTextArea = forwardRef<SmartEditorRef, SmartTextAreaProps>(
       content: value,
       editable: !disabled,
       editorProps: {
-        // Agregamos el guion bajo a _view
         handleKeyDown: (_view, event) => {
+          // Shift + Enter: Fuerza a crear un nuevo bloque/párrafo independiente
+          if (event.key === "Enter" && event.shiftKey) {
+            event.preventDefault();
+            // Si estamos dentro de una lista, permitimos un salto suave,
+            // de lo contrario, creamos un nuevo bloque para que el Markdown no se rompa
+            if (
+              editor.isActive("bulletList") ||
+              editor.isActive("orderedList")
+            ) {
+              editor.commands.setHardBreak();
+            } else {
+              editor.commands.splitBlock();
+            }
+            return true;
+          }
+
+          // 2. Enter normal: Envía el mensaje o crea nueva viñeta
           if (event.key === "Enter" && !event.shiftKey) {
-            // Si el usuario está en una lista, permitimos que Enter cree una nueva viñeta
+            // Si el usuario está en una lista, permitimos que Enter cree una nueva viñeta abajo
             if (
               editor.isActive("bulletList") ||
               editor.isActive("orderedList")
@@ -61,6 +82,7 @@ export const SmartTextArea = forwardRef<SmartEditorRef, SmartTextAreaProps>(
             if (onKeyDownTextArea) onKeyDownTextArea(event);
             return true;
           }
+
           return false;
         },
       },
@@ -72,7 +94,7 @@ export const SmartTextArea = forwardRef<SmartEditorRef, SmartTextAreaProps>(
       },
     });
 
-    // 3. Exponemos los comandos nativos de TipTap hacia la referencia
+    // Exponemos los comandos nativos de TipTap hacia la referencia
     useImperativeHandle(ref, () => ({
       toggleBold: () => editor?.chain().focus().toggleBold().run(),
       toggleItalic: () => editor?.chain().focus().toggleItalic().run(),
@@ -81,6 +103,7 @@ export const SmartTextArea = forwardRef<SmartEditorRef, SmartTextAreaProps>(
       toggleBulletList: () => editor?.chain().focus().toggleBulletList().run(),
       insertEmoji: (emoji: string) =>
         editor?.chain().focus().insertContent(emoji).run(),
+      getEditor: () => editor,
     }));
 
     useEffect(() => {

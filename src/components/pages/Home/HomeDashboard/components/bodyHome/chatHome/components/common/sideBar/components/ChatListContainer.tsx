@@ -14,17 +14,35 @@ export const ChatListContainer = ({
   menuOpen,
   openMenuId,
 }: ChatListProps) => {
+  //Se obtiene el chat activo
   const { activeChat, setActiveChat } = useActiveChat();
+
+  //Se obtiene los datos del usuario
   const { data } = useSupabaseCollection<UserDataType>("users");
+
+  //Se obtiene la data filtrada por usuario
   const staffOnlyUsers = useMemo(() => {
     return data.filter((user) => user.role !== "user");
   }, [data]);
+
+  //Se obtienen los loaders de data chat
   const { chatsLoading, messagesLoader } = useDataChat();
+
+  //Se obtienen los datos del staff
   const staffData: UserDataType[] = staffOnlyUsers || [];
+
+  //Se obtiene el hook para actualizar el documento en la base de datos
   const { updateDoc } = useUpdateDocument("chat");
+
+  //Se obtiene el usuario autentificado
   const { user } = useAuthStore();
+
+  //Se obtiene el id del usuario
   const uid = user?.uuId;
+
+  //Se almacena el loader
   const isLoading = chatsLoading || messagesLoader;
+
   return (
     <div className="chat-list">
       {filteredChats.map((chat) => {

@@ -406,9 +406,6 @@ form {
 .inputText:focus::placeholder, .errorInput:focus::placeholder {
   color: #ddd;
 }
-.inputText:hover, .errorInput:hover {
-  border: 1px solid #2b7fff;
-}
 .inputText:disabled, .errorInput:disabled {
   background: #f2f3f5;
   color: #212121;
@@ -552,7 +549,8 @@ form {
   display: inline !important;
 }
 .smart-chat-editor .ProseMirror code {
-  background-color: rgba(0, 0, 0, 0.05);
+  color: #ed3636;
+  background-color: #e5e7eb;
   padding: 2px 4px;
   border-radius: 4px;
   font-family: monospace;
@@ -564,7 +562,12 @@ form {
   color: #54656f;
   font-size: 15px;
   margin: 0;
-  min-height: 22px; /* Mismo alto que la línea para que no brinque al borrar */
+  min-height: 22px;
+}
+@media (min-width: 0) and (max-width: 991.98px) {
+  .smart-chat-editor .ProseMirror p {
+    font-size: 16px;
+  }
 }
 .smart-chat-editor .ProseMirror::-webkit-scrollbar {
   width: 5px;
@@ -586,6 +589,7 @@ form {
   transition: color 0.3s ease;
 }
 .smart-chat-editor:focus-within .ProseMirror p.is-empty::before, .smart-chat-editor:focus-within .ProseMirror p.is-editor-empty:first-child::before {
+  font-size: 12px;
   color: #ddd !important;
 }
 
@@ -3179,8 +3183,8 @@ form {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 .chat-container .message-row .message-bubble.bubble-media {
-  min-width: 45%;
-  max-width: 45%;
+  min-width: 300px;
+  max-width: 300px;
 }
 .chat-container .message-row .message-bubble.selected {
   background-color: rgba(0, 168, 132, 0.3) !important;
@@ -3934,6 +3938,11 @@ form {
   flex-direction: column;
   gap: 20px;
 }
+@media (min-width: 0) and (max-width: 991.98px) {
+  .preview-footer {
+    padding: 5px 10px;
+  }
+}
 
 .preview-caption-container {
   display: flex;
@@ -3966,6 +3975,15 @@ form {
 .preview-caption-input:hover {
   border: none;
 }
+@media (min-width: 0) and (max-width: 991.98px) {
+  .preview-caption-input {
+    font-size: 16px;
+    padding-bottom: 5px;
+  }
+  .preview-caption-input::placeholder {
+    font-size: 12px;
+  }
+}
 
 .preview-emoji-btn {
   cursor: pointer;
@@ -3986,6 +4004,13 @@ form {
   max-width: 650px;
   margin: 0 auto;
   width: 100%;
+}
+@media (min-width: 0) and (max-width: 991.98px) {
+  .preview-action-ribbon {
+    height: 100%;
+    max-width: 100%;
+    gap: 10px;
+  }
 }
 
 .preview-thumbnails {
@@ -4059,6 +4084,12 @@ form {
 }
 .modal-btns:hover {
   opacity: 0.7;
+}
+@media (min-width: 0) and (max-width: 991.98px) {
+  .modal-btns {
+    border: none;
+    width: 20px;
+  }
 }
 
 .preview-send-btn {
@@ -4182,6 +4213,10 @@ form {
 .ai-context-btn.disabled::before {
   animation: none;
   background: linear-gradient(#fdfdfd, #fdfdfd) padding-box, linear-gradient(#e2e8f0, #e2e8f0) border-box;
+}
+
+.agent-chat {
+  background: red;
 }
 
 @keyframes rainbow-border {
@@ -4558,6 +4593,7 @@ form {
 .markdown code {
   color: var(--dinamic-color);
   font-size: 13px;
+  background-color: #e5e7eb;
   padding: 2px 6px;
   border-radius: 4px;
   font-family: "Fira Mono", "Consolas", "Menlo", monospace;
@@ -5409,6 +5445,14 @@ form {
   align-items: center;
   z-index: 1000;
 }
+@media (min-width: 0) and (max-width: 991.98px) {
+  .forward-modal-overlay {
+    top: 12px;
+    left: 23px;
+    width: 90vw;
+    height: 90vh;
+  }
+}
 
 .forward-modal {
   background-color: #fdfdfd;
@@ -5605,7 +5649,6 @@ form {
   transition: transform 0.2s, background-color 0.2s;
 }
 .forward-modal .modal-footer .send-forward-btn:hover {
-  background-color: #018f6f;
   transform: scale(1.05);
 }
 .forward-modal .modal-footer .send-forward-btn:disabled {

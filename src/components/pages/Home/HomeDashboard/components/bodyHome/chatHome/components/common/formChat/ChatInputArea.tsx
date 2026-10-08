@@ -33,6 +33,7 @@ import { SmartTextArea } from "../../../../../../../../../common/inputs/input/Sm
 import type { SmartEditorRef } from "../../../../../../../../../../types/form/inputsType";
 import { MarkdownToolbar } from "./containers/MarkdownToolBar";
 import { LoaderModal } from "./modals/LoaderModal";
+import { useResponsive } from "../../../../../../../../../../constants/reactResponsive";
 
 export const ChatInputArea = ({
   onSendMessage,
@@ -62,11 +63,13 @@ export const ChatInputArea = ({
 
   //Evaluamos el contenido del objeto generado en el input
   const hasText = !!messageValue?.trim();
-  //State para mostrar el grabador de audio
+  //State para mostrar el grabador de audio y el modal de la camara
   const [isRecordingMode, setIsRecordingMode] = useState(false);
   const [pendingFiles, setPendingFiles] = useState<File[]>([]);
   const [isCameraOpen, setIsCameraOpen] = useState(false);
 
+  //Invocamos use responsive para el reenderizado condicional de pantallas
+  const { isSm } = useResponsive();
   //Handle para cuando esta seleccionado un archivo desde el sistema del usuario
   const handleFilesSelected = async (files: File[]) => {
     setShowSender(false);
@@ -286,7 +289,11 @@ export const ChatInputArea = ({
         {showEmojiPicker && !isSelectedMessages && (
           <>
             {showEmojiPicker && !isSelectedMessages && (
-              <EmojiPicker onEmojiClick={onEmojiClick} />
+              <EmojiPicker
+                left={isSm ? "5px" : undefined}
+                bottom={isSm ? "70px" : undefined}
+                onEmojiClick={onEmojiClick}
+              />
             )}
           </>
         )}
@@ -351,7 +358,7 @@ export const ChatInputArea = ({
               {/* Contenedor de los botones */}
               <div className="btn-containers">
                 {/* MARKDOWN TOOLBAR */}
-                {!isButtonDisabled && hasText && (
+                {!isButtonDisabled && hasText && !isSm && (
                   <MarkdownToolbar editorRef={editorRef} />
                 )}
                 {/* Boton para el generador de contexto con IA */}

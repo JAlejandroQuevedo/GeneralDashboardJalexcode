@@ -42,9 +42,6 @@
   &:focus::placeholder {
     color: #ddd;
   }
-  &:hover {
-    border: 1px solid $principal;
-  }
   &:disabled {
     background: $gris_bajo;
     color: $texto;
@@ -179,22 +176,6 @@
     white-space: pre-wrap;
     position: relative;
 
-    // p {
-    //   color: #54656f;
-    //   font-size: 15px;
-    //   margin: 0;
-    //   min-height: 22px; /* Mismo alto que la línea para que no brinque al borrar */
-    // }
-
-    // &::-webkit-scrollbar {
-    //   width: 5px;
-    // }
-
-    // &::-webkit-scrollbar-thumb {
-    //   background-color: $gris;
-    //   border-radius: 10px;
-    // }
-
     /* Inteligencia Markdown */
     ul {
       padding-left: 10px !important; /* Reducimos el padding porque la viñeta ahora irá por dentro */
@@ -222,7 +203,8 @@
     }
 
     code {
-      background-color: rgba(0, 0, 0, 0.05);
+      color: $error;
+      background-color: $gris;
       padding: 2px 4px;
       border-radius: 4px;
       font-family: monospace;
@@ -233,7 +215,10 @@
       color: #54656f;
       font-size: 15px;
       margin: 0;
-      min-height: 22px; /* Mismo alto que la línea para que no brinque al borrar */
+      min-height: 22px;
+      @include media(xs, lg) {
+        font-size: 16px;
+      }
     }
 
     &::-webkit-scrollbar {
@@ -259,6 +244,7 @@
 
   &:focus-within .ProseMirror p.is-empty::before,
   &:focus-within .ProseMirror p.is-editor-empty:first-child::before {
+    font-size: 12px;
     color: #ddd !important;
   }
 }

@@ -7,6 +7,7 @@ import type {
   SetStateAction,
 } from "react";
 import type { UserDataType } from "./dashboardTypes";
+import type { SmartEditorRef } from "../form/inputsType";
 
 export type ChatStatus = "Notstarted" | "Pendient" | "Completed" | "Unassigned";
 
@@ -228,4 +229,8 @@ export type InputButtonContainerModalTypeProps = {
 
 export type LoaderModalProps = {
   onClick: () => void;
+};
+
+export type MarkdownToolbarProps = {
+  editorRef: RefObject<SmartEditorRef | null>;
 };
