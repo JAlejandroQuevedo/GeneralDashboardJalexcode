@@ -192,6 +192,47 @@ export const ChatContainer = ({ messages }: ChatContainerProps) => {
               <div
                 id={`msg-${msg.wa_id}`}
                 className={`message-bubble ${msg.sender} ${isMediaTypeBubble ? "bubble-media" : ""} ${isSelected ? "selected" : ""}`}
+                // Funcion para el click derecho
+                onContextMenu={(e) => {
+                  // Si está activo el modo selección, ignoramos el clic
+                  if (isSelectionMode) return;
+
+                  //Se verifica si el usuario tiene texto subrayado/seleccionado
+                  const selection = window.getSelection();
+                  if (selection && selection.toString().trim().length > 0) {
+                    return; // Salimos para que aparezca el menú nativo de "Copiar"
+                  }
+
+                  //Obtenemos el target
+                  const target = e.target as HTMLElement;
+
+                  // Si es multimedia, salimos ANTES de bloquear el menú nativo.
+                  // Esto permite que el usuario pueda usar "Guardar imagen como..."
+                  if (
+                    target.closest("button") ||
+                    target.closest("a") ||
+                    target.closest(".wa-audio-player") ||
+                    target.closest(".lazy-media-image") ||
+                    target.closest(".album-thumb-wrapper") ||
+                    target.closest(".wa-video-container") ||
+                    target.closest(".sticker-container-wrapper") ||
+                    target.closest(".reaction-badge") ||
+                    target.closest(".quoted-message-wrapper")
+                  ) {
+                    return;
+                  }
+
+                  // Si el clic fue en texto o en el fondo de la burbuja,
+                  // Se abre el menu creado
+                  e.preventDefault();
+
+                  const menuTrigger = e.currentTarget.querySelector(
+                    ".menu-trigger",
+                  ) as HTMLButtonElement;
+                  if (menuTrigger) {
+                    menuTrigger.click();
+                  }
+                }}
               >
                 {/* Botón de Reacciones */}
                 {!isSelectionMode &&

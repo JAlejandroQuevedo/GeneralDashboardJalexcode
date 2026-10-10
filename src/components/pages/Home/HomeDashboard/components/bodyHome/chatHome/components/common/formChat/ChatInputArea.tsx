@@ -139,7 +139,6 @@ export const ChatInputArea = ({
   //Logica para determinar cundo se envio el ultimo mensaje del chat
   const { hasPassed24Hours } = useUtilities();
   const lastMessageChat = activeChatInfo[0].last_message_time;
-  console.log(lastMessageChat);
   const isChatDisabled = hasPassed24Hours(lastMessageChat);
 
   //Funcion que maneja el envio del formulario

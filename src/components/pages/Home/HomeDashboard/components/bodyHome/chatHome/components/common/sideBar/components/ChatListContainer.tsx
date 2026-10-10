@@ -59,14 +59,20 @@ export const ChatListContainer = ({
             chat={chat}
             isActive={chat.id === activeChat}
             staffData={staffData}
+            // No esta siendo usado de momento, se puede usar para resaltar los chats que tiene asigndo el usuario
             isAssignedToCurrentUser={isAssignedToCurrentUser}
             openMenuId={openMenuId}
             menuOpen={menuOpen}
+            //Se usa para saber que usuario resaltar en el menu de asignar chat to staff
             chatId={chat.staff_id}
             onClick={() => {
               setActiveChat(chat.id);
-              updateDoc(chat.id, { total_messages: 0 });
-              updateDoc(chat.id, { status: "Pendient" });
+              updateDoc(chat.id, {
+                total_messages: 0,
+                status: "Pendient",
+                //Actualizamos el staff id para saber quien fue el ultimo asesor que interactuo con el usuario
+                staff_id: uid,
+              });
             }}
           />
         );
