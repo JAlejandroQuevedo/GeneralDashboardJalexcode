@@ -19,7 +19,7 @@
   margin-left: 0;
   @include media(xs, lg) {
     position: absolute;
-    z-index: 999; // Nos aseguramos de que tape al dashboard cuando se abra
+    z-index: 999;
     left: 0;
     top: 0;
 
@@ -58,8 +58,7 @@
       display: flex;
       justify-content: center;
       position: relative;
-      top: -20px;
-      left: 20px;
+      left: -10px;
       align-items: center;
       width: 25px;
       height: 25px;
@@ -79,7 +78,7 @@
       object-fit: fill;
       object-position: center;
       @include media(xs, lg) {
-        width: 60%;
+        width: 30%;
       }
     }
   }
@@ -112,6 +111,12 @@
       border-radius: 50%;
       aspect-ratio: 1/1;
       box-shadow: 0 1px 3px 0 $gris;
+      @include media(xs, lg) {
+        width: 100%;
+        justify-content: flex-start;
+        border-radius: 10px;
+      }
+
       img {
         width: 15px;
         height: 15px;

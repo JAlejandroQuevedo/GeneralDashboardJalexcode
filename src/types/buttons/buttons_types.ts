@@ -3,6 +3,7 @@ export type ButtonProps = {
   type?: "button" | "reset" | "submit";
   disabled?: boolean;
   disabledChat?: boolean;
+  isDirty?: boolean;
   width?: string;
   height?: string;
   fontSize?: string;

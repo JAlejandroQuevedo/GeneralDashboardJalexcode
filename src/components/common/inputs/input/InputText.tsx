@@ -17,6 +17,7 @@ export const InputText = <T extends Record<string, any>>({
 }: InputProps<T>) => {
   const fieldError = errors[id] as { message?: string } | undefined;
   const errorMessage = fieldError?.message;
+  const { onChange: formOnChange } = register(id);
   return (
     <>
       <div className="inputsContainers">
@@ -46,7 +47,14 @@ export const InputText = <T extends Record<string, any>>({
           disabled={disabled}
           {...register(id)}
           className={errorMessage || customError ? "errorInput" : "inputText"}
-          onChange={onChange}
+          onChange={(e) => {
+            // 1. Notificamos a react-hook-form para que actualice isDirty y sus valores
+            formOnChange(e);
+            // 2. Ejecutamos tu onChange personalizado (si es que pasaste alguno)
+            if (onChange) {
+              onChange(e);
+            }
+          }}
         />
         {errorMessage && <span className="errorMsg">{errorMessage}</span>}
       </div>

@@ -14,6 +14,12 @@
   color: $texto;
 }
 
+*,
+*::before,
+*::after {
+  -webkit-tap-highlight-color: transparent;
+}
+
 //Estilos que se aplican en el proyecto, son mas especificos para aplicarse en lo que se mostrara en pantalla
 
 html,

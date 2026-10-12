@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchAuthSession } from "@aws-amplify/auth";
-import { createClient } from "@supabase/supabase-js";
-import { config } from "../../../config/config";
 import { useAuthStore } from "../../../stores/userStore";
+import { getSupabaseClient } from "../supabaseConfig";
 
 export const useSupabaseSingleDocument = <T>(tableName: string) => {
   const [data, setData] = useState<T | null>(null);
@@ -12,14 +11,19 @@ export const useSupabaseSingleDocument = <T>(tableName: string) => {
 
   const sbToken = user?.supabaseToken;
   const sbUserId = user?.uuId;
+
   useEffect(() => {
-    if (!tableName) {
+    // Evitamos ejecutar si faltan datos esenciales
+    if (!tableName || !sbToken || !sbUserId) {
       setLoading(false);
       return;
     }
 
     let isMounted = true;
-    let customSupabase: any = null;
+    let channel: any = null;
+
+    // Nombre de canal único para evitar colisiones entre múltiples componentes montados
+    const uniqueChannelName = `public:${tableName}:${sbUserId}-${Math.random().toString(36).substring(7)}`;
 
     const setupStreaming = async () => {
       setLoading(true);
@@ -27,38 +31,16 @@ export const useSupabaseSingleDocument = <T>(tableName: string) => {
 
       try {
         const session = await fetchAuthSession();
-        const idToken = session.tokens?.idToken?.toString();
-        if (!idToken) throw new Error("No hay sesión activa en Cognito");
-
-        if (!sbToken || !sbUserId) {
-          throw new Error(
-            `Faltan datos del backend. Token: ${!!sbToken}, UserId: ${!!sbUserId}`,
-          );
+        if (!session.tokens?.idToken) {
+          throw new Error("No hay sesión activa en Cognito");
         }
-
         if (!isMounted) return;
 
-        customSupabase = createClient(
-          config.SUPABASE_URL,
-          config.SUPABASE_ANON_KEY,
-          {
-            auth: {
-              persistSession: false,
-              autoRefreshToken: false,
-              detectSessionInUrl: false,
-              storageKey: `temp-supabase-${Math.random()}`,
-            },
-            global: {
-              headers: {
-                Authorization: `Bearer ${sbToken}`,
-                apikey: config.SUPABASE_ANON_KEY,
-              },
-            },
-          },
-        );
-
+        // Obtenemos el cliente Singleton y actualizamos el token de Realtime
+        const customSupabase = getSupabaseClient(sbToken);
         customSupabase.realtime.setAuth(sbToken);
 
+        // Ejecutamos la consulta inicial (Fetch REST)
         const { data: initialData, error: fetchError } = await customSupabase
           .from(tableName)
           .select("*")
@@ -76,27 +58,28 @@ export const useSupabaseSingleDocument = <T>(tableName: string) => {
 
         if (isMounted) setData(initialData as T);
 
-        customSupabase
-          .channel(`public:${tableName}:${sbUserId}`)
-          .on(
-            "postgres_changes",
-            {
-              event: "*",
-              schema: "public",
-              table: tableName,
-              filter: `id=eq.${sbUserId}`,
-            },
-            (payload: any) => {
-              if (isMounted) {
-                if (payload.eventType === "DELETE") {
-                  setData(null);
-                } else {
-                  setData(payload.new as T);
-                }
-              }
-            },
-          )
-          .subscribe();
+        // Asignamos la configuración de tiempo real a la variable 'channel'
+        channel = customSupabase.channel(uniqueChannelName).on(
+          "postgres_changes",
+          {
+            event: "*",
+            schema: "public",
+            table: tableName,
+            filter: `id=eq.${sbUserId}`,
+          },
+          (payload: any) => {
+            if (!isMounted) return;
+
+            if (payload.eventType === "DELETE") {
+              setData(null);
+            } else {
+              setData(payload.new as T);
+            }
+          },
+        );
+
+        // Suscribimos el canal
+        channel.subscribe();
       } catch (err: any) {
         console.error(`Error en streaming de Supabase (${tableName}):`, err);
         if (isMounted) setError(err.message);
@@ -107,13 +90,16 @@ export const useSupabaseSingleDocument = <T>(tableName: string) => {
 
     setupStreaming();
 
+    //Limpieza (Cleanup) al desmontar
     return () => {
       isMounted = false;
-      if (customSupabase) {
-        customSupabase.removeAllChannels();
+      // Removemos estrictamente el canal actual, sin afectar conexiones de otros componentes
+      if (channel) {
+        const customSupabase = getSupabaseClient(sbToken);
+        customSupabase.removeChannel(channel);
       }
     };
-  }, [tableName]);
+  }, [tableName, sbToken, sbUserId]);
 
   return { data, loading, error };
 };

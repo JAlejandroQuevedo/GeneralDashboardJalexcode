@@ -5,6 +5,7 @@ export const useDesktopNotifications = (
   chats: ChatType[],
   messages: MessageType[],
   activeChatId: string | null,
+  isEnebled: boolean,
   onNotificationClick: (chatId: string) => void,
 ) => {
   const prevMessagesLength = useRef(messages.length);
@@ -13,6 +14,8 @@ export const useDesktopNotifications = (
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
+    //Si el usuario manda false, retornamos
+    if (!isEnebled) return;
     // Inicializamos el objeto de audio al montar el hook
     audioRef.current = new Audio("/img/not_sound.mp3");
 

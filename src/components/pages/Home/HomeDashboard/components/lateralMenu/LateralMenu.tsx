@@ -16,14 +16,17 @@ export const LateralMenu = () => {
 
   const { optionConstantStaff, optionsConstantAdmin, optionConstantUser } =
     useOptionsLateralPanel();
+
   const options: OptionsType[] =
     role === "admin" || role === "super-admin"
       ? optionsConstantAdmin
       : role === "user"
         ? optionConstantUser
         : optionConstantStaff;
+
   const { isLateralPanelVisible, setisLateralPanelVisible } =
     useShowLateralPanelStore();
+
   const { isSm, isMd, isLg, isIpadPro } = useResponsive();
   const isSmall = isSm || isMd || isLg || isIpadPro;
   return (
@@ -41,7 +44,6 @@ export const LateralMenu = () => {
         )}
       </div>
       <div className="containerButtonsLateralMenu">
-        {/* <p className="txt-menu">{txtTitle}</p> */}
         {options.map((item, index) => {
           return (
             <button
@@ -61,7 +63,7 @@ export const LateralMenu = () => {
                 }
                 alt={item.alt}
               />
-              {/* <p>{item.name}</p> */}
+              {isSm && <p>{item.name}</p>}
             </button>
           );
         })}

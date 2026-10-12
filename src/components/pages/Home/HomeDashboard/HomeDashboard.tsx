@@ -26,14 +26,20 @@ import { useDataChat } from "./components/bodyHome/chatHome/data/useDataChat";
 export const HomeDashboard = () => {
   const { selected, setSelected } = useSelectedStore();
   const { user: data } = useAuthStore();
+  const { isSm, isMd, isLg, isIpadPro } = useResponsive();
+
   //Se toman los mensajes y los chats para las notificaciones
   const { messages, chats } = useDataChat();
   const { activeChat, setActiveChat } = useActiveChat();
   //Hook para las notificaciones
-  useDesktopNotifications(chats, messages, activeChat, (chatId) => {
+
+  //Si el usuario esta en un dispositivo mobile no se le mandan notificaciones
+
+  useDesktopNotifications(chats, messages, activeChat, !isSm, (chatId) => {
     setSelected("Mensajes");
     setActiveChat(chatId);
   });
+
   const role = data?.role || "staff";
 
   const { optionsConstantAdmin, optionConstantStaff, optionConstantUser } =
@@ -51,7 +57,6 @@ export const HomeDashboard = () => {
   const { loading } = useSupabaseSingleDocument<UserDataType>("users");
 
   //El lateral panel se oculta por defecto
-  const { isSm, isMd, isLg, isIpadPro } = useResponsive();
 
   const isSmall = isSm || isMd || isLg || isIpadPro;
   const { setisLateralPanelVisible } = useShowLateralPanelStore();

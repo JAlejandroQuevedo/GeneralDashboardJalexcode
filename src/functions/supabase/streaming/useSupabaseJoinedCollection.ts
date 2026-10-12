@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchAuthSession } from "@aws-amplify/auth";
-import { createClient } from "@supabase/supabase-js";
-import { config } from "../../../config/config";
 import { useAuthStore } from "../../../stores/userStore";
+import { getSupabaseClient } from "../supabaseConfig";
 
 // Recibimos un genérico T que obligatoriamente debe tener un 'id'
 export const useSupabaseJoinedCollection = <T extends { id: string }>(
@@ -20,8 +19,10 @@ export const useSupabaseJoinedCollection = <T extends { id: string }>(
 
   useEffect(() => {
     if (!tableName || !sbToken || !selectQuery) return;
+
     let isMounted = true;
-    let customSupabase: any = null;
+    let channel: any = null;
+    const uniqueChannelName = `public:${tableName}-${Math.random().toString(36).substring(7)}`;
 
     const setupStreaming = async () => {
       setLoading(true);
@@ -34,25 +35,7 @@ export const useSupabaseJoinedCollection = <T extends { id: string }>(
         if (!idToken) throw new Error("No hay sesión activa");
         if (!isMounted) return;
 
-        customSupabase = createClient(
-          config.SUPABASE_URL,
-          config.SUPABASE_ANON_KEY,
-          {
-            auth: {
-              persistSession: false,
-              autoRefreshToken: false,
-              detectSessionInUrl: false,
-              storageKey: `temp-supabase-${Math.random()}`,
-            },
-            global: {
-              headers: {
-                Authorization: `Bearer ${sbToken}`,
-                apikey: config.SUPABASE_ANON_KEY,
-              },
-            },
-          },
-        );
-
+        const customSupabase = getSupabaseClient(sbToken);
         customSupabase.realtime.setAuth(sbToken);
 
         const { data: initialData, error: fetchError } = await customSupabase
@@ -77,47 +60,46 @@ export const useSupabaseJoinedCollection = <T extends { id: string }>(
           return fullRecord as T;
         };
 
-        customSupabase
-          .channel(`public:${tableName}-joined-collection`)
-          .on(
-            "postgres_changes",
-            {
-              event: "*",
-              schema: "public",
-              table: tableName,
-            },
-            async (payload: any) => {
-              if (!isMounted) return;
+        // Asignamos la configuración a nuestra variable 'channel' sin código flotante
+        channel = customSupabase.channel(uniqueChannelName).on(
+          "postgres_changes",
+          {
+            event: "*",
+            schema: "public",
+            table: tableName,
+          },
+          async (payload: any) => {
+            if (!isMounted) return;
 
-              if (payload.eventType === "INSERT") {
-                const fullRecord = await fetchJoinedRecord(payload.new.id);
-                if (fullRecord && isMounted) {
-                  setData((prev) => [...prev, fullRecord]);
-                }
-              } else if (payload.eventType === "UPDATE") {
-                const fullRecord = await fetchJoinedRecord(payload.new.id);
-                if (fullRecord && isMounted) {
-                  setData((prev) => {
-                    const exists = prev.some(
-                      (item) => item.id === fullRecord.id,
-                    );
-                    if (exists) {
-                      return prev.map((item) =>
-                        item.id === fullRecord.id ? fullRecord : item,
-                      );
-                    } else {
-                      return [fullRecord, ...prev];
-                    }
-                  });
-                }
-              } else if (payload.eventType === "DELETE") {
-                setData((prev) =>
-                  prev.filter((item) => item.id !== payload.old.id),
-                );
+            if (payload.eventType === "INSERT") {
+              const fullRecord = await fetchJoinedRecord(payload.new.id);
+              if (fullRecord && isMounted) {
+                setData((prev) => [...prev, fullRecord]);
               }
-            },
-          )
-          .subscribe();
+            } else if (payload.eventType === "UPDATE") {
+              const fullRecord = await fetchJoinedRecord(payload.new.id);
+              if (fullRecord && isMounted) {
+                setData((prev) => {
+                  const exists = prev.some((item) => item.id === fullRecord.id);
+                  if (exists) {
+                    return prev.map((item) =>
+                      item.id === fullRecord.id ? fullRecord : item,
+                    );
+                  } else {
+                    return [fullRecord, ...prev];
+                  }
+                });
+              }
+            } else if (payload.eventType === "DELETE") {
+              setData((prev) =>
+                prev.filter((item) => item.id !== payload.old.id),
+              );
+            }
+          },
+        );
+
+        // Suscribirse al canal
+        channel.subscribe();
       } catch (err: any) {
         if (isMounted) setError(err.message);
       } finally {
@@ -129,9 +111,13 @@ export const useSupabaseJoinedCollection = <T extends { id: string }>(
 
     return () => {
       isMounted = false;
-      if (customSupabase) customSupabase.removeAllChannels();
+      // Limpieza correcta pidiendo el cliente de nuevo y removiendo solo el canal actual
+      if (channel) {
+        const customSupabase = getSupabaseClient(sbToken);
+        customSupabase.removeChannel(channel);
+      }
     };
-  }, [tableName, selectQuery]);
+  }, [tableName, selectQuery, order, ascending, sbToken]);
 
   return { data, loading, error };
 };

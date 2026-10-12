@@ -101,6 +101,7 @@ export type UserFormProps = {
   isDiscardVisible?: boolean;
   error?: string;
   isElementsVisible?: boolean;
+  isDirty?: boolean;
 };
 
 //Policies type

@@ -9,11 +9,12 @@ export const PrimaryButton = ({
   width,
   height,
   fontSize,
+  isDirty = false,
 }: ButtonProps) => {
   return (
     <button
       type={type}
-      disabled={disabled || disabledChat}
+      disabled={disabled || disabledChat || isDirty}
       onClick={onClick}
       style={{
         ...(width ? { width } : {}),

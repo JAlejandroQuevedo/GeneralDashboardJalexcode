@@ -23,7 +23,6 @@ export const useDataStaff = () => {
     config.DEV_USER_ADMIN,
   ];
   //Filtros de usuarios de desarrollo
-  const { filteredData } = useFilteredData();
 
   //Data de la tabla del staff
   const {
@@ -33,7 +32,7 @@ export const useDataStaff = () => {
     reconnect: reconnectUsers,
   } = useSupabaseCollection<UserDataType>("users");
 
-  const staffData = filteredData(
+  const staffData = useFilteredData(
     normalData,
     restrictedIdsStaff,
     userData?.uuId || "",

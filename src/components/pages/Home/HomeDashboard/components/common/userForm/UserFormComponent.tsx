@@ -31,10 +31,15 @@ export const UserFormComponent = ({
     control,
     setValue,
     getValues,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isDirty },
   } = useForm<UserFormType>({
     resolver: zodResolver(userSchema),
-    values: initialValues,
+    values: initialValues
+      ? {
+          ...initialValues,
+          password: "",
+        }
+      : undefined,
     defaultValues: {
       email: "",
       role: "",
@@ -42,6 +47,8 @@ export const UserFormComponent = ({
       username: "",
     },
   });
+
+  console.log(isDirty);
   //Obtener la data del usuario
 
   const { user } = useAuthStore();
@@ -212,7 +219,7 @@ export const UserFormComponent = ({
             {isDiscardVisible && (
               <DiscardButton
                 onClick={handleDiscard}
-                width={isDiscardVisible ? "30%" : "800px"}
+                width={isDiscardVisible ? "50%" : "800px"}
                 height="50px"
               />
             )}
@@ -220,9 +227,10 @@ export const UserFormComponent = ({
             <PrimaryButton
               text={initialValues ? "Actualizar Usuario" : "Crear Usuario"}
               type="submit"
-              width={isDiscardVisible ? "30%" : "80%"}
+              width={isDiscardVisible ? "50%" : "100%"}
               height="50px"
               disabled={isSubmitting || isLoading}
+              isDirty={!isDirty}
             />
           </div>
         )}

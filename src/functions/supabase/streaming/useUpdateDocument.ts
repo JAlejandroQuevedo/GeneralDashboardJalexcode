@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { fetchAuthSession } from "@aws-amplify/auth";
-import { createClient } from "@supabase/supabase-js";
-import { config } from "../../../config/config";
 import { useAuthStore } from "../../../stores/userStore";
+import { getSupabaseClient } from "../supabaseConfig";
 
 export const useUpdateDocument = (tableName: string) => {
   const [updating, setUpdating] = useState(false);
@@ -21,24 +20,7 @@ export const useUpdateDocument = (tableName: string) => {
 
       if (!sbToken) throw new Error("Falta el token de Supabase");
 
-      const customSupabase = createClient(
-        config.SUPABASE_URL,
-        config.SUPABASE_ANON_KEY,
-        {
-          auth: {
-            persistSession: false,
-            autoRefreshToken: false,
-            detectSessionInUrl: false,
-            storageKey: `temp-supabase-${Math.random()}`,
-          },
-          global: {
-            headers: {
-              Authorization: `Bearer ${sbToken}`,
-              apikey: config.SUPABASE_ANON_KEY,
-            },
-          },
-        },
-      );
+      const customSupabase = getSupabaseClient(sbToken);
 
       const { error: updateError } = await customSupabase
         .from(tableName)

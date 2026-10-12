@@ -35,12 +35,11 @@ export const useDataDahboard = () => {
     config.ID_DEV_USER,
     config.DEV_USER_ADMIN,
   ];
-  //Filtros de usuarios de desarrollo
-  const { filteredData } = useFilteredData();
+
   //Data para el staff desde supabase
   const { data: normalData, loading: isStaffLoading } =
     useSupabaseCollection<UserDataType>("users");
-  const dataStaff = filteredData(
+  const dataStaff = useFilteredData(
     normalData,
     restrictedIdsStaff,
     userData?.uuId || "",
@@ -57,7 +56,7 @@ export const useDataDahboard = () => {
   const { data: normalDataChats, loading: isChatsLoading } =
     useSupabaseCollection<ChatType>("chat");
   //Filtro de chats de desarrollo
-  const dataChats = filteredData(
+  const dataChats = useFilteredData(
     normalDataChats,
     restrictedIdChats,
     userData?.uuId || "",

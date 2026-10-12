@@ -109,7 +109,20 @@ export const SideBarContent = ({
 
   const lastMessage = getLastActiveMessage(messages, chat.id);
   return (
-    <div className={`chat-item ${isActive ? "active" : ""}`} onClick={onClick}>
+    <div
+      className={`chat-item ${isActive ? "active" : ""}`}
+      onContextMenu={(e) => {
+        e.preventDefault();
+        const menuTrigger = e.currentTarget.querySelector(
+          ".menu-btn",
+        ) as HTMLButtonElement;
+
+        if (menuTrigger) {
+          menuTrigger.click();
+        }
+      }}
+      onClick={onClick}
+    >
       {/* Columna Izquierda: Avatar */}
       <div className="avatar">{getInitials(chat.name)}</div>
 

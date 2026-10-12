@@ -12,7 +12,6 @@ export const useDataChat = () => {
   //Datos del usuario
   const { user: userData } = useAuthStore();
   //Filtros de usuarios de desarrollo
-  const { filteredData } = useFilteredData();
   //Chats data
   const restrictedIdChats: string[] = [
     config.ID_DEV_CHAT,
@@ -22,7 +21,7 @@ export const useDataChat = () => {
 
   const { data: normalData, loading: chatsLoading } =
     useSupabaseCollection<ChatType>("chat");
-  const dataChats = filteredData(
+  const dataChats = useFilteredData(
     normalData,
     restrictedIdChats,
     userData?.uuId || "",
