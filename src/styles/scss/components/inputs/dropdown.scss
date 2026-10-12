@@ -30,11 +30,11 @@
     font-size: $body;
     box-shadow: none;
     @include media(xs, lg) {
-      font-size: 16px;
+      font-size: 14px;
     }
 
     &:hover {
-      border-color: $principal;
+      opacity: 0.7;
     }
 
     &--is-focused {
@@ -75,11 +75,11 @@
 
     &--is-focused {
       color: $fondo;
-      background: $principal;
+      background: #5ba8e8;
     }
     &--is-selected {
       background: $principal;
-      color: white;
+      color: $fondo;
     }
   }
 
@@ -116,9 +116,6 @@
   }
   .rs__control {
     border-color: $error;
-    &:hover {
-      border-color: 1px solid $principal;
-    }
   }
 
   .rs__placeholder {

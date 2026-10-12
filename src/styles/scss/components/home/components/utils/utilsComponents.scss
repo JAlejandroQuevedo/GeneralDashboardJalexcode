@@ -14,6 +14,11 @@
     border-radius: 50%;
     border: 1px solid $gris;
     background-color: $fondo;
+    aspect-ratio: 1/1;
+    @include media(xs, lg) {
+      width: 30px;
+      height: 30px;
+    }
     img {
       width: 60%;
     }
@@ -25,7 +30,7 @@
     h3 {
       font-size: 14px;
       @include media(xs, lg) {
-        font-size: 12px;
+        font-size: 10px;
       }
     }
     p {

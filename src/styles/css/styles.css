@@ -132,12 +132,10 @@ a {
   border: none;
   outline: none;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
 }
 .navbar .txt-button-navbar .button-txt img {
   width: 100%;
   height: 100%;
-  -webkit-tap-highlight-color: transparent;
 }
 .navbar .txt-button-navbar h3 {
   color: #212121;
@@ -402,11 +400,9 @@ form {
   }
 }
 .inputText::placeholder, .errorInput::placeholder {
+  font-size: 14px;
   color: #e5e7eb;
   opacity: 1;
-}
-.inputText::placeholder, .errorInput::placeholder {
-  color: #aaa;
   transition: color 0.3s ease;
 }
 .inputText:focus::placeholder, .errorInput:focus::placeholder {
@@ -830,10 +826,8 @@ form {
 }
 .inputPassword input::placeholder, .errorInputPassword input::placeholder {
   color: #e5e7eb;
+  font-size: 14px;
   opacity: 1;
-}
-.inputPassword input::placeholder, .errorInputPassword input::placeholder {
-  color: #aaa;
   transition: color 0.3s ease;
 }
 .inputPassword input:focus::placeholder, .errorInputPassword input:focus::placeholder {
@@ -1048,11 +1042,11 @@ form {
 }
 @media (min-width: 0) and (max-width: 991.98px) {
   .inputDropdown .rs__control, .errorDropdown .rs__control {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 .inputDropdown .rs__control:hover, .errorDropdown .rs__control:hover {
-  border-color: #2b7fff;
+  opacity: 0.7;
 }
 .inputDropdown .rs__control--is-focused, .errorDropdown .rs__control--is-focused {
   border-color: #2b7fff;
@@ -1085,11 +1079,11 @@ form {
 }
 .inputDropdown .rs__option--is-focused, .errorDropdown .rs__option--is-focused {
   color: #fdfdfd;
-  background: #2b7fff;
+  background: #5ba8e8;
 }
 .inputDropdown .rs__option--is-selected, .errorDropdown .rs__option--is-selected {
   background: #2b7fff;
-  color: white;
+  color: #fdfdfd;
 }
 .inputDropdown .rs__indicator-separator, .errorDropdown .rs__indicator-separator {
   display: none;
@@ -1113,9 +1107,6 @@ form {
 }
 .errorDropdown .rs__control {
   border-color: #ed3636;
-}
-.errorDropdown .rs__control:hover {
-  border-color: 1px solid #2b7fff;
 }
 .errorDropdown .rs__placeholder {
   color: #ed3636;
@@ -1589,6 +1580,7 @@ form {
 @media (min-width: 0) and (max-width: 991.98px) {
   .home-titles {
     justify-content: center;
+    gap: 15px;
   }
 }
 .home-titles .txt-container {
@@ -1918,7 +1910,6 @@ form {
   gap: 15px;
   padding: 10px;
   margin-top: 30px;
-  -webkit-tap-highlight-color: transparent;
 }
 .lateralMenu .containerButtonsLateralMenu .txt-menu {
   font-size: 9.5px;
@@ -1950,7 +1941,6 @@ form {
 .lateralMenu .containerButtonsLateralMenu .btnFill img, .lateralMenu .containerButtonsLateralMenu .btnInactive img {
   width: 15px;
   height: 15px;
-  -webkit-tap-highlight-color: transparent;
 }
 .lateralMenu .containerButtonsLateralMenu .btnFill p, .lateralMenu .containerButtonsLateralMenu .btnInactive p {
   color: #2b7fff;
@@ -2310,7 +2300,6 @@ form {
   height: 15px;
   object-fit: contain;
   object-position: center;
-  -webkit-tap-highlight-color: transparent;
 }
 .general-card-container .dashboard-card .body-card {
   display: flex;
@@ -2383,7 +2372,6 @@ form {
   height: 22px;
   object-fit: contain;
   object-position: center;
-  -webkit-tap-highlight-color: transparent;
 }
 .general-card-container .cards-assets .nav-card .nav-txt-btn p {
   margin-top: -6px;
@@ -2523,7 +2511,6 @@ form {
   background-color: #fdfdfd;
   height: 100px;
   flex: 1;
-  -webkit-tap-highlight-color: transparent;
 }
 @media (min-width: 0) and (max-width: 991.98px) {
   .fast-actions .actions-btns .btn-actions {
@@ -2552,7 +2539,6 @@ form {
   background-color: #fdfdfd;
   height: 100px;
   flex: 1;
-  -webkit-tap-highlight-color: transparent;
 }
 @media (min-width: 0) and (max-width: 991.98px) {
   .fast-actions .actions-btns .btn-inactive {
@@ -2677,6 +2663,13 @@ form {
   border-radius: 50%;
   border: 1px solid #e5e7eb;
   background-color: #fdfdfd;
+  aspect-ratio: 1/1;
+}
+@media (min-width: 0) and (max-width: 991.98px) {
+  .staff-info .staff-photo {
+    width: 30px;
+    height: 30px;
+  }
 }
 .staff-info .staff-photo img {
   width: 60%;
@@ -2691,7 +2684,7 @@ form {
 }
 @media (min-width: 0) and (max-width: 991.98px) {
   .staff-info .staff-data h3 {
-    font-size: 12px;
+    font-size: 10px;
   }
 }
 .staff-info .staff-data p {
@@ -2797,9 +2790,16 @@ form {
   border: 1px solid #e5e7eb;
   background: #fdfdfd;
 }
+.sidebar .search-container input::placeholder {
+  color: #e5e7eb;
+  opacity: 0.8;
+}
 @media (min-width: 0) and (max-width: 991.98px) {
   .sidebar .search-container input {
     font-size: 16px;
+  }
+  .sidebar .search-container input::placeholder {
+    font-size: 13px;
   }
 }
 .sidebar .search-container button {
@@ -2835,7 +2835,6 @@ form {
   cursor: pointer;
   position: relative;
   transition: background 0.2s;
-  -webkit-tap-highlight-color: transparent;
 }
 .chat-item:hover {
   background: #f2f3f5;
@@ -3923,6 +3922,11 @@ form {
   font-weight: 500;
   font-size: 15px;
 }
+@media (min-width: 0) and (max-width: 991.98px) {
+  .preview-title {
+    font-size: 12px;
+  }
+}
 
 .fill-title {
   width: 24px;
@@ -4853,6 +4857,12 @@ form {
   color: #212121;
   font-weight: 600;
   cursor: pointer;
+}
+@media (min-width: 0) and (max-width: 991.98px) {
+  .btn-generate-password {
+    font-size: 12px;
+    min-width: 70px;
+  }
 }
 .btn-generate-password:hover {
   border: 1px solid #2b7fff;

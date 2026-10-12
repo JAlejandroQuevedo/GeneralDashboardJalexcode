@@ -90,7 +90,7 @@ export const SideBarContent = ({
   const handleDeleteBtn = async (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     const result = await deleteChat(chat.id, messagesToChatId);
-    const resultMessages = await deleteMessages(messagesToChatId);
+    const resultMessages = await deleteMessages(messagesToChatId, chat.id);
     if (!result.success || !resultMessages.success) {
       console.error("No se pudo eliminar el chat:", result.error);
     }
@@ -99,7 +99,12 @@ export const SideBarContent = ({
 
   const handleCleanBtn = async (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    const resultMessages = await deleteMessages(messagesToChatId);
+
+    if (messagesToChatId.length === 0) {
+      menuOpen(null);
+      return;
+    }
+    const resultMessages = await deleteMessages(messagesToChatId, chat.id);
     if (!resultMessages.success) {
       console.error("No se pudo eliminar el chat:", resultMessages.error);
     }

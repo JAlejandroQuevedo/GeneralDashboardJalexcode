@@ -1,20 +1,26 @@
 import { useDeleteDocument } from "../functions/supabase/streaming/useDeleteDocument";
 import { clearMediaCache } from "../functions/cacheUtils";
+import { useUpdateDocument } from "../functions/supabase/streaming/useUpdateDocument";
 
 export const useDeleteChats = () => {
   const { deleteDoc, deleting, deleteError } = useDeleteDocument("messages");
+  const { updateDoc: updateChat } = useUpdateDocument("chat");
 
-  const deleteMessages = async (messages: any[]) => {
+  const deleteMessages = async (messages: any[], chatId?: string) => {
     if (!messages || messages.length === 0) return { success: true };
 
-    // 1. Extraemos los IDs
+    // Extraemos los IDs
     const messageIds = messages.map((msg) => msg.id);
 
-    // 2. Usamos tu hook genérico
+    //  Usamos el hook de delete doc
     const result = await deleteDoc(messageIds);
 
-    // 3. Si se borraron en BD, limpiamos la caché del navegador
+    // Si se borraron en BD, limpiamos la caché del navegador
     if (result.success) {
+      if (chatId) {
+        await updateChat(chatId, { total_messages: 0 });
+      }
+
       await clearMediaCache(messages, "whatsapp-media-cache-v1");
     }
 

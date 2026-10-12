@@ -52,8 +52,15 @@
       padding: 13px 12px;
       border: 1px solid $gris;
       background: $fondo;
+      &::placeholder {
+        color: $gris;
+        opacity: 0.8;
+      }
       @include media(xs, lg) {
         font-size: 16px;
+        &::placeholder {
+          font-size: 13px;
+        }
       }
     }
     button {
@@ -92,7 +99,6 @@
   cursor: pointer;
   position: relative;
   transition: background 0.2s;
-  -webkit-tap-highlight-color: transparent;
 
   &:hover {
     background: $gris_bajo;
@@ -1210,6 +1216,9 @@
   justify-content: center;
   font-weight: 500;
   font-size: 15px;
+  @include media(xs, lg) {
+    font-size: 12px;
+  }
 }
 .fill-title {
   width: 24px;

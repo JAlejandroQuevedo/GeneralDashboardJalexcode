@@ -4,6 +4,7 @@ import { ButtonModal } from "../../../buttons/ButtonModal";
 import { EmojiButton } from "../../../buttons/EmojiButton";
 import { EmojiPicker } from "../../../containers/EmojiPicker";
 import type { CaptionAreatTypeProps } from "../../../../../../../../../../../../../types/home/chatSectionTypes";
+import { useResponsive } from "../../../../../../../../../../../../../constants/reactResponsive";
 
 export const CaptionArea = ({
   files,
@@ -13,7 +14,8 @@ export const CaptionArea = ({
   //States que permiten el mostrar el picker de los emojis y el set del caption del textarea
   const [caption, setCaption] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-
+  //Responsive
+  const { isSm } = useResponsive();
   //Funcion para mostrar el cuadro de emojis
   const onEmojiClick = (emojiData: any) => {
     setCaption((prev) => prev + emojiData.native);
@@ -40,7 +42,11 @@ export const CaptionArea = ({
   return (
     <>
       {showEmojiPicker && (
-        <EmojiPicker bottom="68px" left="350px" onEmojiClick={onEmojiClick} />
+        <EmojiPicker
+          bottom="68px"
+          left={isSm ? "0" : "350px"}
+          onEmojiClick={onEmojiClick}
+        />
       )}
       <div className="preview-caption-container">
         <textarea

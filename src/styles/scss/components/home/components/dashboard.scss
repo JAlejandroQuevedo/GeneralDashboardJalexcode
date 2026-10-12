@@ -73,7 +73,6 @@
         height: 15px;
         object-fit: contain;
         object-position: center;
-        -webkit-tap-highlight-color: transparent;
       }
     }
     .body-card {
@@ -141,7 +140,6 @@
             height: 22px;
             object-fit: contain;
             object-position: center;
-            -webkit-tap-highlight-color: transparent;
           }
         }
         p {
@@ -283,7 +281,6 @@
       background-color: $fondo;
       height: 100px;
       flex: 1;
-      -webkit-tap-highlight-color: transparent;
       @include media(xs, lg) {
         padding: 15px;
       }
@@ -310,7 +307,6 @@
       background-color: $fondo;
       height: 100px;
       flex: 1;
-      -webkit-tap-highlight-color: transparent;
       @include media(xs, lg) {
         padding: 15px;
       }

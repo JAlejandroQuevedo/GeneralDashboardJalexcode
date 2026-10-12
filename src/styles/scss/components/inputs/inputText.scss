@@ -31,11 +31,9 @@
     font-size: 16px;
   }
   &::placeholder {
+    font-size: 14px;
     color: $gris;
     opacity: 1;
-  }
-  &::placeholder {
-    color: #aaa;
     transition: color 0.3s ease;
   }
 

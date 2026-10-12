@@ -240,7 +240,7 @@ export const ChatApp = () => {
                 style={
                   {
                     "--dynamic-background": hasActiveChat
-                      ? "url(img/background.webp)"
+                      ? "url(https://res.cloudinary.com/dcgup4dzv/image/upload/v1791446521/bck_chat_slwcd4.jpg)"
                       : "none",
 
                     "--dynamic-background-color": !hasActiveChat
