@@ -409,3 +409,98 @@ export const useClipboardMedia = ({
     return () => document.removeEventListener("paste", handleGlobalPaste);
   }, [onFilesPasted]);
 };
+
+//Hook para obtener los templates typados
+
+export type UseTypeRequestHook = {
+  normalizedVariables: Record<string, string>;
+  endpoint: string;
+  selectedFile: File | null;
+};
+
+export type ReminderPetType = {
+  time: string;
+  cost: string;
+  range: string;
+  endpoint: "reminder-pet";
+};
+
+export type PetTimeChange = {
+  time: string;
+  endpoint: "pets-time-change";
+};
+
+export type PetReminder = {
+  ownerName: string;
+  petName: string;
+  endpoint: "pets-reminder";
+};
+
+export type WelwomeWsSystem = {
+  endpoint: "welcome-system";
+};
+
+export type WelcomePetSystem = {
+  petName: string;
+  endpoint: "welcome-pet";
+};
+
+export type CoffeTemplate = {
+  file: File | null;
+  product: string;
+  endpoint: "coffee-template";
+};
+export type RequestData =
+  | ReminderPetType
+  | PetTimeChange
+  | PetReminder
+  | WelwomeWsSystem
+  | WelcomePetSystem
+  | CoffeTemplate
+  | null;
+
+export const useTypeRequest = ({
+  normalizedVariables,
+  endpoint,
+  selectedFile,
+}: UseTypeRequestHook) => {
+  const getTypedVariables = (): RequestData => {
+    switch (endpoint) {
+      case "/reminder-pet":
+        return {
+          ...(normalizedVariables as unknown as ReminderPetType),
+          endpoint: "reminder-pet",
+        };
+      case "/pets-time-change":
+        return {
+          ...(normalizedVariables as unknown as PetTimeChange),
+          endpoint: "pets-time-change",
+        };
+      case "/welcome-system":
+        return {
+          endpoint: "welcome-system",
+        };
+      case "/pets-reminder":
+        return {
+          ...(normalizedVariables as unknown as PetReminder),
+          endpoint: "pets-reminder",
+        };
+      case "/welcome-pet":
+        return {
+          ...(normalizedVariables as unknown as WelcomePetSystem),
+          endpoint: "welcome-pet",
+        };
+      case "/coffee-template":
+        return {
+          ...(normalizedVariables as unknown as CoffeTemplate),
+          file: selectedFile,
+          endpoint: "coffee-template",
+        };
+      default:
+        return null;
+    }
+  };
+  return {
+    data: getTypedVariables(),
+  };
+};

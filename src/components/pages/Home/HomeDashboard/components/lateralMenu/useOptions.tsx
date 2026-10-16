@@ -41,6 +41,12 @@ export const useOptionsLateralPanel = () => {
       alt: "Icono contabilidad",
     },
     {
+      name: "Templates",
+      iconActive: "/img/icons/template_icon.svg",
+      iconInactive: "/img/icons/template_icon_inactive.svg",
+      alt: "Icono templates",
+    },
+    {
       name: "Ajustes",
       iconActive: "/img/icons/settings.svg",
       iconInactive: "/img/icons/settings_inactive.svg",
@@ -65,6 +71,12 @@ export const useOptionsLateralPanel = () => {
       iconActive: "/img/icons/messages_icon.svg",
       iconInactive: "/img/icons/messages_icon_inactive.svg",
       alt: "Icono contabilidad",
+    },
+    {
+      name: "Templates",
+      iconActive: "/img/icons/template_icon.svg",
+      iconInactive: "/img/icons/template_icon_inactive.svg",
+      alt: "Icono templates",
     },
     {
       name: "Ajustes",

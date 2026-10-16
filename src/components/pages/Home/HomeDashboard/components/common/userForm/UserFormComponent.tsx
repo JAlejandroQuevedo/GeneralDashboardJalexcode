@@ -224,7 +224,7 @@ export const UserFormComponent = ({
             )}
 
             <PrimaryButton
-              text={initialValues ? "Actualizar Usuario" : "Crear Usuario"}
+              text={initialValues ? "Actualizar" : "Crear Usuario"}
               type="submit"
               width={isDiscardVisible ? "50%" : "100%"}
               height="50px"

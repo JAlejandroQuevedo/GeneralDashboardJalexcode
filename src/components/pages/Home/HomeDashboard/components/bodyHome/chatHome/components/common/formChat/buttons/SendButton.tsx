@@ -1,5 +1,6 @@
 import { SendHorizontal } from "lucide-react";
 import type { SendButtonProps } from "../../../../../../../../../../../types/home/chatSectionTypes";
+import { BeatLoader } from "react-spinners";
 
 export const SendButton = ({
   isButtonDisabled,
@@ -12,7 +13,11 @@ export const SendButton = ({
       type="submit"
       disabled={isButtonDisabled || isChatDisabled || isSubmiting}
     >
-      <SendHorizontal size={18} color="#9da3ab" />
+      {isSubmiting ? (
+        <BeatLoader size={10} color="#ed3636" />
+      ) : (
+        <SendHorizontal size={18} color="#9da3ab" />
+      )}
     </button>
   );
 };

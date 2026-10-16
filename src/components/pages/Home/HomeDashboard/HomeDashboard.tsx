@@ -22,6 +22,7 @@ import { useAuthStore } from "../../../../stores/userStore";
 import { InsurancePoliciesHome } from "./components/bodyHome/insurancePoliciesHome/InsurancePoliciesHome";
 import { useDesktopNotifications } from "../../../../hooks/useNotifications";
 import { useDataChat } from "./components/bodyHome/chatHome/data/useDataChat";
+import { TemplateHome } from "./components/bodyHome/templateHome/TemplateHome";
 
 export const HomeDashboard = () => {
   const { selected, setSelected } = useSelectedStore();
@@ -106,7 +107,8 @@ export const HomeDashboard = () => {
                     {selected === options[0].name && <DashboardHome />}
                     {selected === options[1].name && <StaffHome />}
                     {selected === options[2].name && <ChatApp />}
-                    {selected === options[3].name && <SettingsHome />}
+                    {selected === options[3].name && <TemplateHome />}
+                    {selected === options[4].name && <SettingsHome />}
                   </>
                 )}
               </main>

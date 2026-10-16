@@ -99,7 +99,6 @@
   cursor: pointer;
   position: relative;
   transition: background 0.2s;
-
   &:hover {
     background: $gris_bajo;
     border: 1px solid $gris;
@@ -404,16 +403,12 @@
   }
 }
 
-/* ==========================================
-   CONTENEDOR DE MENSAJES (BURBUJAS Y FILAS)
-   ========================================== */
+/* CONTENEDOR DE MENSAJES (BURBUJAS Y FILAS) */
 .chat-container {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
   position: relative;
-
   .date-divider {
     align-self: center;
     margin: 15px 0;
@@ -458,6 +453,7 @@
     .message-bubble {
       min-width: 140px;
       max-width: 70%;
+      background-color: red;
       padding: 8px 12px;
       border-radius: 8px;
       position: relative;
@@ -492,6 +488,12 @@
         .react-action-btn {
           left: -30px;
         }
+      }
+
+      &.template {
+        background: $fondo;
+        min-height: 320px;
+        max-width: 340px;
       }
 
       &.agent-IA {
@@ -801,15 +803,7 @@
         }
       }
     }
-    .btn-containers {
-      display: flex;
-      align-items: center;
-      padding: 5px 0;
-      gap: 15px;
-      @include media(xs, lg) {
-        padding: 5px 5px;
-      }
-    }
+
     .markdown-toolbar {
       display: flex;
       border: 1px solid $gris;
@@ -825,26 +819,6 @@
     }
     button {
       flex-shrink: 0;
-    }
-    .submit-message {
-      display: flex;
-      width: 40px;
-      height: 40px;
-      max-width: 40px;
-      max-height: 40px;
-      cursor: pointer;
-      background: none;
-      border: 1px solid $gris;
-      outline: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      border-radius: 50%;
-      aspect-ratio: 1/1;
-      &:disabled {
-        opacity: 0.2;
-        pointer-events: none;
-      }
     }
   }
 }
@@ -864,6 +838,35 @@
   width: 100%;
   padding: 5px 12px;
   box-sizing: border-box;
+  .btn-containers {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+    gap: 15px;
+    @include media(xs, lg) {
+      padding: 5px 5px;
+    }
+  }
+  .submit-message {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    max-width: 40px;
+    max-height: 40px;
+    cursor: pointer;
+    background: none;
+    border: 1px solid $gris;
+    outline: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    &:disabled {
+      opacity: 0.2;
+      pointer-events: none;
+    }
+  }
 }
 
 /* Estilos del emoji picker */

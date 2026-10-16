@@ -3137,14 +3137,11 @@ form {
   }
 }
 
-/* ==========================================
-   CONTENEDOR DE MENSAJES (BURBUJAS Y FILAS)
-   ========================================== */
+/* CONTENEDOR DE MENSAJES (BURBUJAS Y FILAS) */
 .chat-container {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
   position: relative;
 }
 .chat-container .date-divider {
@@ -3189,6 +3186,7 @@ form {
 .chat-container .message-row .message-bubble {
   min-width: 140px;
   max-width: 70%;
+  background-color: red;
   padding: 8px 12px;
   border-radius: 8px;
   position: relative;
@@ -3223,6 +3221,11 @@ form {
 }
 .chat-container .message-row .message-bubble.agent .react-action-btn {
   left: -30px;
+}
+.chat-container .message-row .message-bubble.template {
+  background: #fdfdfd;
+  min-height: 320px;
+  max-width: 340px;
 }
 .chat-container .message-row .message-bubble.agent-IA {
   align-self: flex-end;
@@ -3517,17 +3520,6 @@ form {
   background-color: #e5e7eb;
   border-radius: 10px;
 }
-.chat-input-area form .btn-containers {
-  display: flex;
-  align-items: center;
-  padding: 5px 0;
-  gap: 15px;
-}
-@media (min-width: 0) and (max-width: 991.98px) {
-  .chat-input-area form .btn-containers {
-    padding: 5px 5px;
-  }
-}
 .chat-input-area form .markdown-toolbar {
   display: flex;
   border: 1px solid #e5e7eb;
@@ -3543,26 +3535,6 @@ form {
 }
 .chat-input-area form button {
   flex-shrink: 0;
-}
-.chat-input-area form .submit-message {
-  display: flex;
-  width: 40px;
-  height: 40px;
-  max-width: 40px;
-  max-height: 40px;
-  cursor: pointer;
-  background: none;
-  border: 1px solid #e5e7eb;
-  outline: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  aspect-ratio: 1/1;
-}
-.chat-input-area form .submit-message:disabled {
-  opacity: 0.2;
-  pointer-events: none;
 }
 
 /* Convierte el formulario en flex para alinear el botón de carita con el TextArea */
@@ -3580,6 +3552,37 @@ form {
   width: 100%;
   padding: 5px 12px;
   box-sizing: border-box;
+}
+.chat-input-form .btn-containers {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+  gap: 15px;
+}
+@media (min-width: 0) and (max-width: 991.98px) {
+  .chat-input-form .btn-containers {
+    padding: 5px 5px;
+  }
+}
+.chat-input-form .submit-message {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  max-width: 40px;
+  max-height: 40px;
+  cursor: pointer;
+  background: none;
+  border: 1px solid #e5e7eb;
+  outline: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+}
+.chat-input-form .submit-message:disabled {
+  opacity: 0.2;
+  pointer-events: none;
 }
 
 /* Estilos del emoji picker */
@@ -5703,6 +5706,155 @@ form {
   100% {
     transform: rotate(360deg);
   }
+}
+/* Contenedor principal de la previsualización */
+.template-flex-1 {
+  flex: 1;
+}
+
+.template-preview-container {
+  width: 100%;
+  margin: 0px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.message-row .template header {
+  display: flex;
+  width: 100%;
+  min-height: 52px;
+  padding: 5px;
+  border-bottom: 1px solid #e5e7eb;
+}
+.message-row .template header ul {
+  margin: 0;
+  padding: 0;
+}
+.message-row .template header ul li {
+  list-style: none;
+  font-weight: 700;
+}
+
+/* Ajustes específicos para la burbuja de la plantilla */
+.template-preview-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Cabecera de Imagen (Interactiva) */
+.template-image-header {
+  margin-bottom: 20px;
+  border: var(--dinamic-border);
+  height: 180px;
+  border-radius: 8px;
+  display: flex;
+  padding-top: 10px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+
+.template-image-header img {
+  width: 100%;
+  height: 100%;
+  object-fit: var(--dinamic-fit);
+  object-position: center;
+}
+
+.template-image-placeholder-text {
+  color: var(--dinamic-color);
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+/* Inputs editables dentro del texto (Inline WYSIWYG) */
+.template-inline-input {
+  width: var(--dinamic-width);
+  max-width: 100px;
+  font-size: 14px;
+  border: none;
+  border-bottom: 2px dashed #1b9229;
+  border-bottom-color: var(--dinamic-border-bottom-color);
+  background: rgba(0, 168, 132, 0.08);
+  color: #212121;
+  font-weight: bold;
+  outline: none;
+  padding: 0 4px;
+  border-radius: 4px 4px 0 0;
+  min-width: 6ch;
+  max-width: 100%;
+  text-align: left;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  vertical-align: baseline;
+}
+
+/* Reducimos la prominencia del placeholder para que no confunda */
+.template-inline-input::placeholder {
+  color: black;
+  font-weight: normal;
+}
+
+/* Efecto al hacer clic (focus) */
+.template-inline-input:focus {
+  background: rgba(0, 168, 132, 0.15);
+  border-bottom: 2px solid #1b9229;
+}
+
+/* Estilos unicos para el boton de template */
+.btn-template {
+  align-items: center;
+  justify-content: var(--dinamic-justify-content);
+  padding-right: 20px !important;
+}
+
+/* Estilos para los botones */
+.template-button-item {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  min-height: 44px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
+}
+.template-button-item p {
+  font-size: 14px;
+  color: #1b9229;
+}
+
+.mark-template {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.mark-template .template-body-text {
+  font-size: 14px;
+}
+
+.template-text-header {
+  padding-top: 20px;
+}
+
+.template-text-header span {
+  font-weight: 700;
+}
+
+.btns-containers {
+  display: flex;
+  justify-content: center;
+  height: fit-content;
+  gap: 10px;
+  padding-bottom: 10px;
+  flex-direction: column;
 }
 
 /*# sourceMappingURL=styles.css.map */

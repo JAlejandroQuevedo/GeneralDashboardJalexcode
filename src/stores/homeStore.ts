@@ -197,7 +197,7 @@ export const useReactionStore = create<ReactionStore>((set) => ({
   setOpenMenuId: (id) => set({ openMenuId: id }),
 }));
 
-//Store para selecter y reply
+//Store para selected y reply
 type ChatUIState = {
   replyingTo: MessageType | null;
   setReplyingTo: (msg: MessageType) => void;
@@ -268,4 +268,34 @@ export const useChatUIStore = create<ChatUIState>((set) => ({
     }),
   setDeletingIds: (ids) => set({ deletingIds: ids }),
   setTargetMediaToOpen: (wa_id) => set({ targetMediaToOpen: wa_id }),
+}));
+
+//Store para Template y reply
+type TemplateUIState = {
+  isMenuModalOpen: boolean;
+  setMenuModalOpen: (isOpen: boolean) => void;
+  isTemplateLoading: boolean;
+  setIsTemplateLoading: (isTemplateLoading: boolean) => void;
+  endpoint: string;
+  setEndpoint: (endpoint: string) => void;
+  normalizedVariables: Record<string, string>;
+  setNormalizedVariables: (normalizedVariables: Record<string, string>) => void;
+  selectedFile: File | null;
+  setSelectedFile: (selectedFile: File | null) => void;
+};
+
+export const useTemplateUIStore = create<TemplateUIState>((set) => ({
+  isMenuModalOpen: false,
+  isTemplateLoading: false,
+  endpoint: "",
+  normalizedVariables: {},
+  selectedFile: null,
+  setMenuModalOpen: (isOpen: boolean) => set({ isMenuModalOpen: isOpen }),
+  setEndpoint: (endpoint: string) => set({ endpoint: endpoint }),
+  setNormalizedVariables: (normalizedVariables: Record<string, string>) =>
+    set({ normalizedVariables: normalizedVariables }),
+  setSelectedFile: (selectedFile: File | null) =>
+    set({ selectedFile: selectedFile }),
+  setIsTemplateLoading: (isTemplateLoding: boolean) =>
+    set({ isTemplateLoading: isTemplateLoding }),
 }));

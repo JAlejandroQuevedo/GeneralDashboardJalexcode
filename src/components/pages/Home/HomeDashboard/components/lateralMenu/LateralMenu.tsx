@@ -1,7 +1,9 @@
 import { useSelectedStore } from "../../../../../../stores/auth/LateralMenuStore";
 import {
   useActiveChat,
+  useChatUIStore,
   useShowLateralPanelStore,
+  useTemplateUIStore,
 } from "../../../../../../stores/homeStore";
 import type { OptionsType } from "../../../../../../types/home/lateralMenu";
 import { useResponsive } from "../../../../../../constants/reactResponsive";
@@ -16,7 +18,8 @@ export const LateralMenu = () => {
 
   const { optionConstantStaff, optionsConstantAdmin, optionConstantUser } =
     useOptionsLateralPanel();
-
+  const { setForwardModalOpen } = useChatUIStore();
+  const { setMenuModalOpen } = useTemplateUIStore();
   const options: OptionsType[] =
     role === "admin" || role === "super-admin"
       ? optionsConstantAdmin
@@ -50,6 +53,8 @@ export const LateralMenu = () => {
               onClick={() => {
                 setSelected(item.name);
                 setActiveChat("");
+                setForwardModalOpen(false);
+                setMenuModalOpen(false);
                 if (isSmall) {
                   setisLateralPanelVisible(false);
                 }

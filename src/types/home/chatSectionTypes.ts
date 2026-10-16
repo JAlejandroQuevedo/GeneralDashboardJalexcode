@@ -48,6 +48,7 @@ export type MessageType = {
 export type SearchContainerProps = {
   searchTerm: string;
   setSearchTerm: (term: string) => void;
+  isTemplateScreen?: boolean;
 };
 
 //Chat list container types

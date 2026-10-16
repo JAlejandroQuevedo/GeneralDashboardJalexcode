@@ -9,6 +9,7 @@ import { useDataChat } from "../../../data/useDataChat";
 export const SearchContainer = ({
   searchTerm,
   setSearchTerm,
+  isTemplateScreen = false,
 }: SearchContainerProps) => {
   //Store para el loader del reconect global
   const { setisLoaderActive } = useLoaderReconnectStore();
@@ -30,29 +31,35 @@ export const SearchContainer = ({
   return (
     <div className="search-container">
       <div className="txt-search-container">
-        <h3>Chats</h3>
-        <div className="btn-search-container">
-          <MessageCirclePlus
-            onClick={() => {
-              setisPopupVisible(true);
-            }}
-            cursor={"pointer"}
-            color={"#959595"}
-            size={25}
-          />
-          <button
-            aria-label="Recargar chats"
-            onClick={() => {
-              handleReload();
-            }}
-          >
-            <img src="/img/icons/reload_icon.svg" alt="Icono de reload" />
-          </button>
-        </div>
+        <h3>{isTemplateScreen ? "Templates" : "Chats"}</h3>
+        {!isTemplateScreen ? (
+          <div className="btn-search-container">
+            <MessageCirclePlus
+              onClick={() => {
+                setisPopupVisible(true);
+              }}
+              cursor={"pointer"}
+              color={"#959595"}
+              size={25}
+            />
+            <button
+              aria-label="Recargar chats"
+              onClick={() => {
+                handleReload();
+              }}
+            >
+              <img src="/img/icons/reload_icon.svg" alt="Icono de reload" />
+            </button>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
       <input
         type="text"
-        placeholder="Buscar conversaciones..."
+        placeholder={
+          isTemplateScreen ? "Buscar templates..." : "Buscar conversaciones..."
+        }
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
